@@ -58,11 +58,7 @@ public class PlayerControl : MonoBehaviour
 		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies"));
 		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask); 
 
-		if(!disabled) {
-			ProcessInput();
-		} else {
-			Debug.Log ("Disabled");
-		}
+		ProcessInput();
 
 		if(Time.time > disabledUntil) {
 			disabled = false;
@@ -76,14 +72,18 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void ProcessInput() {	
-		// Cache the horizontal input.
-		h = Input.GetAxis("Horizontal");
+		if(!disabled) {
+			// Cache the horizontal input.
+			h = Input.GetAxis("Horizontal");
 
-		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetButtonDown("Jump") && grounded && Time.time > lastJump + 0.5f) {
-			jump = true;
-		} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			plunge = true;
+			// If the jump button is pressed and the player is grounded then the player should jump.
+			if(Input.GetButtonDown("Jump") && grounded && Time.time > lastJump + 0.5f) {
+				jump = true;
+			} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+				plunge = true;
+			}
+		} else {
+			h = 0;
 		}
 	}
 
@@ -194,13 +194,23 @@ public class PlayerControl : MonoBehaviour
 		disabledUntil = Time.time + seconds;
 	}
 
-	void OnCollisionEnter2D(Collision2D collider) {
+	void OnTriggerEnter2D(Collider2D collider) {
 		if(collider.transform.tag == "Danger") {
 			Danger danger = collider.gameObject.GetComponent<Danger>();
 			Mortal mortal = GetComponent<Mortal>();
 			if(mortal != null) {
 				mortal.Hurt(danger.DamageOnTouch);
-				rigidbody2D.velocity = -1*collider.relativeVelocity;
+			}
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D collider) {
+		if(collider.transform.tag == "Danger") {
+			Danger danger = collider.gameObject.GetComponent<Danger>();
+			Mortal mortal = GetComponent<Mortal>();
+			float damage = Time.deltaTime * danger.DamagePerSecond;
+			if(mortal != null) {
+				mortal.Hurt(damage);
 			}
 		}
 	}

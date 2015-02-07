@@ -23,29 +23,48 @@ public class Princess : MonoBehaviour
 	public PlayerControl Player;
 
 	private Transform body;
+	private LineRenderer line;
+	private GameObject ropeAttach;
+
+	private bool lasso = false;
 
 	void Start() {
-		Physics2D.IgnoreCollision(Player.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>());
-		body = transform.Find("Body");
+		Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
 	}
 
 	void Awake()
 	{
-		anim = GetComponent<Animator>();
+		body = transform.Find("Body");
+		anim = body.gameObject.GetComponent<Animator>();
+		line = GetComponent<LineRenderer>();
+		ropeAttach = transform.Find("RopeAttach").gameObject;
 	}
 	
 	
 	void Update()
 	{
-
+		if(lasso) {
+			DrawLasso();
+		}
 	}
-	
-	
+
+	void ThrowLasso() {
+		lasso = true;
+	}
+
+	void DrawLasso() {
+		line.SetVertexCount(2);
+		line.SetPosition(0, ropeAttach.transform.position);
+		line.SetPosition(1, Player.transform.position);
+	}
+
+	void StopLasso() {
+		line.SetVertexCount(0);
+		lasso = false;
+	}
+
 	void FixedUpdate ()
 	{		
-		// The Speed animator parameter is set to the absolute value of the horizontal input.
-		anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
-		
 		// If the princess's horizontal velocity is greater than the maxSpeed...
 		if(Mathf.Abs(rigidbody2D.velocity.x) > maxSpeed)
 			// ... set the princess's velocity to the maxSpeed in the x axis.
@@ -62,10 +81,7 @@ public class Princess : MonoBehaviour
 		
 		// If the princess should jump...
 		if(jump)
-		{
-			// Set the Jump animator trigger parameter.
-			anim.SetTrigger("Jump");
-			
+		{			
 			// Play a random jump audio clip.
 			int i = Random.Range(0, jumpClips.Length);
 			AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
@@ -77,10 +93,19 @@ public class Princess : MonoBehaviour
 			jump = false;
 		}
 
+		// Change rope side to keep moving
 		if(transform.position.x > Player.transform.position.x + 2) {
 			Player.SetRopeSide(-1);
 		} else if(transform.position.x < Player.transform.position.x - 2) {
 			Player.SetRopeSide(1);
+		}
+
+		// Use lasso when falling
+		if(!lasso && transform.position.y < Player.transform.position.y && rigidbody2D.velocity.y < -0.5) {
+			ThrowLasso();
+		}
+		if(lasso && transform.position.y > Player.transform.position.y) {
+			StopLasso();
 		}
 	}
 	
