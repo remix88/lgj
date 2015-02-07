@@ -122,7 +122,6 @@ public class PlayerControl : MonoBehaviour
 		if(h * rigidbody2D.velocity.x < maxSpeed) {
 			// ... add a force to the player.
 			float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
-			Debug.Log ("H:" + h + ", Velocity: " + rigidbody2D.velocity.x + ", Strength:" + strength + ", Force:" + (h * moveForce * strength));
 			rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
 		}
 

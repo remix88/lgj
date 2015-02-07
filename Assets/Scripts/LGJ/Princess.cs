@@ -66,9 +66,12 @@ public class Princess : MonoBehaviour
 
 	void FixedUpdate ()
 	{		
-		float dir = Mathf.Sign(Player.PrincessFocus.transform.position.x - transform.position.x);
-		if(dir * rigidbody2D.velocity.x < maxSpeed) {
-			rigidbody2D.AddForce(new Vector2(dir * moveForce, 0));
+		// If the princess is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
+		float h = Mathf.Sign(Player.PrincessFocus.transform.position.x - transform.position.x);
+		if(h * rigidbody2D.velocity.x < maxSpeed) {
+			// ... add a force to the princess.
+			float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
+			rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
 		}
 
 		// If the input is moving the princess right and the princess is facing left...
@@ -127,6 +130,9 @@ public class Princess : MonoBehaviour
 	
 	public void Taunt()
 	{
+		if(taunts.Length == 0) {
+			return;
+		}
 		// Check the random chance of taunting.
 		float tauntChance = Random.Range(0f, 100f);
 		if(tauntChance > tauntProbability)
