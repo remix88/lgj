@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 7069f08431585fd41b2592934cbeca39
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Idle
+    21300002: Plunge
+    21300004: ScaredFront
+    21300006: Side
+    21300008: SideScared
+    21300010: ArmLeft
+    21300012: ArmRight
+    21300014: Leg
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Idle
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 1
+        width: 77
+        height: 215
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Plunge
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 14
+        width: 126
+        height: 200
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ScaredFront
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 0
+        width: 77
+        height: 215
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Side
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 28
+        width: 75
+        height: 180
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SideScared
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 34
+        width: 76
+        height: 182
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmLeft
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 132
+        width: 46
+        height: 70
+      alignment: 9
+      pivot: {x: .701357663, y: .928602576}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmRight
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 80
+        width: 18
+        height: 40
+      alignment: 9
+      pivot: {x: .340477824, y: .867464662}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Leg
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 34
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
