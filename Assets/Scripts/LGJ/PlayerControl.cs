@@ -118,13 +118,9 @@ public class PlayerControl : MonoBehaviour
 
 	void FixedUpdate ()
 	{		
-		// If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
-		if(h * rigidbody2D.velocity.x < maxSpeed) {
-			// ... add a force to the player.
-			float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
-			rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
-		}
-
+		// Add force, but less force when the player is nearing the maximum speed
+		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
+		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
 		
 		// If the input is moving the player right and the player is facing left...
 		if(h > 0 && !facingRight)
