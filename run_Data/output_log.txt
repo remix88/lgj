@@ -1,0 +1,20 @@
+Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvumdshimx.dll 9.18.13.4725]
+    Renderer: NVIDIA GeForce GT 650M 
+    Vendor:   NVIDIA
+    VRAM:     971 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Data\Projects\LocalGameJam\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Data\Projects\LocalGameJam\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Data\Projects\LocalGameJam\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Data\Projects\LocalGameJam\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Data\Projects\LocalGameJam\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Data\Projects\LocalGameJam\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.128 seconds
+desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Data\Projects\LocalGameJam\run_Data\Managed\System.Core.dll (this message is harmless)
