@@ -22,8 +22,11 @@ public class Princess : MonoBehaviour
 
 	public PlayerControl Player;
 
+	private Transform body;
+
 	void Start() {
 		Physics2D.IgnoreCollision(Player.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>());
+		body = transform.Find("Body");
 	}
 
 	void Awake()
@@ -87,9 +90,9 @@ public class Princess : MonoBehaviour
 		facingRight = !facingRight;
 		
 		// Multiply the princess's x local scale by -1.
-		Vector3 theScale = transform.localScale;
+		Vector3 theScale = body.localScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;
+		body.localScale = theScale;
 	}
 
 	public void Jump() {

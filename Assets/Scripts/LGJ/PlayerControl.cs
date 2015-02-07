@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour
 	public bool facingRight = true;			// For determining which way the player is currently facing.
 	[HideInInspector]
 	public bool jump = false;				// Condition for whether the player should jump.
+	[HideInInspector]
+	public bool plunge = false;				// Condition for whether the player should plunge.
 
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
@@ -23,18 +25,20 @@ public class PlayerControl : MonoBehaviour
 
 	private GameObject jumpBeacon;
 	private GameObject ropeAttach;
+	private Transform body;
 
 	public float RopeDistance = 1;
 	private int ropeSide = 0;
 
 	void Start() {
-		ropeAttach = transform.FindChild("RopeAttach").gameObject;
+		ropeAttach = transform.FindChild("Body/RopeAttach").gameObject;
+		body = transform.Find("Body");
 	}
 
 	void Awake()
 	{
 		// Setting up references.
-		groundCheck = transform.Find("groundCheck");
+		groundCheck = transform.Find("Body/groundCheck");
 		anim = GetComponent<Animator>();
 
 		jumpBeacon = (GameObject)Resources.Load("Prefabs/JumpBeacon");
@@ -47,8 +51,11 @@ public class PlayerControl : MonoBehaviour
 		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
 
 		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetButtonDown("Jump") && grounded)
+		if(Input.GetButtonDown("Jump") && grounded) {
 			jump = true;
+		} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+			plunge = true;
+		}
 	}
 
 	public void SetRopeSide(int side) {
@@ -105,6 +112,11 @@ public class PlayerControl : MonoBehaviour
 			GameObject beacon = (GameObject)Instantiate(jumpBeacon);
 			beacon.transform.position = transform.position;
 		}
+
+		if(plunge) {
+			rigidbody2D.AddForce(new Vector2(0, -.7f*jumpForce));
+			plunge = false;
+		}
 	}
 	
 	
@@ -114,9 +126,9 @@ public class PlayerControl : MonoBehaviour
 		facingRight = !facingRight;
 
 		// Multiply the player's x local scale by -1.
-		Vector3 theScale = transform.localScale;
+		Vector3 theScale = body.localScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;
+		body.localScale = theScale;
 	}
 
 
@@ -155,5 +167,18 @@ public class PlayerControl : MonoBehaviour
 		else
 			// Otherwise return this index.
 			return i;
+	}
+
+	void OnCollisionEnter2D(Collision2D collider) {
+		if(collider.transform.tag == "Danger") {
+			Danger danger = collider.gameObject.GetComponent<Danger>();
+			Mortal mortal = GetComponent<Mortal>();
+			if(mortal != null) {
+				mortal.Hurt(danger.DamageOnTouch);
+				float forceX = Mathf.Sign(mortal.rigidbody2D.velocity.x) * -1 * danger.HorizontalForce;
+				float forceY = mortal.rigidbody2D.velocity.y * -1 * danger.VerticalForce;
+				mortal.rigidbody2D.velocity = collider.relativeVelocity;
+			}
+		}
 	}
 }
