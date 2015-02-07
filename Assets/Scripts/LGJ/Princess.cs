@@ -66,9 +66,9 @@ public class Princess : MonoBehaviour
 
 	void FixedUpdate ()
 	{		
-		if(Mathf.Abs(rigidbody2D.velocity.x) < maxSpeed) {
-			float diff = Player.PrincessFocus.transform.position.x - transform.position.x;
-			rigidbody2D.AddForce(new Vector2(Mathf.Sign(diff) * moveForce, 0));
+		float dir = Mathf.Sign(Player.PrincessFocus.transform.position.x - transform.position.x);
+		if(dir * rigidbody2D.velocity.x < maxSpeed) {
+			rigidbody2D.AddForce(new Vector2(dir * moveForce, 0));
 		}
 
 		// If the input is moving the princess right and the princess is facing left...
