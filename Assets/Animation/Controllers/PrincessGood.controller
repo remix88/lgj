@@ -38,6 +38,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+<<<<<<< HEAD
 --- !u!1101 &110136768
 Transition:
   serializedVersion: 2
@@ -78,6 +79,23 @@ Transition:
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
+=======
+--- !u!1102 &110213780
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PrincessWalkWorse
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: ad3d3d27e17007a41990180150b48237, type: 2}
+  m_ParentStateMachine: {fileID: 110785696}
+  m_Position: {x: 324, y: 192, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+>>>>>>> 1561a4963b5ec9a4315a23ae0d7971cc8b233f2e
 --- !u!1102 &110228274
 State:
   m_ObjectHideFlags: 3
@@ -89,7 +107,52 @@ State:
   m_Motions:
   - {fileID: 7400000, guid: ead1af5af95bf47418d31dd0e73fc7f7, type: 2}
   m_ParentStateMachine: {fileID: 110785696}
-  m_Position: {x: 168, y: 108, z: 0}
+  m_Position: {x: 324, y: -24, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110243508
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PrincessWalkWorst
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: c458fdd5fb810664d8ecab2180ee8b43, type: 2}
+  m_ParentStateMachine: {fileID: 110785696}
+  m_Position: {x: 324, y: 264, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110257636
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PrincessHurt
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 686595d6371fd3a47a86505ad03c2d8b, type: 2}
+  m_ParentStateMachine: {fileID: 110785696}
+  m_Position: {x: 0, y: 192, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110266162
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PrincessWalkBad
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: e32a99a18fbca2d42a76daca838a753f, type: 2}
+  m_ParentStateMachine: {fileID: 110785696}
+  m_Position: {x: 324, y: 120, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -104,7 +167,7 @@ State:
   m_Motions:
   - {fileID: 7400000, guid: 64103ee1a1f65f242a0dd73f9f4d13be, type: 2}
   m_ParentStateMachine: {fileID: 110785696}
-  m_Position: {x: -168, y: 108, z: 0}
+  m_Position: {x: 324, y: 48, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -115,24 +178,44 @@ StateMachine:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Base Layer
-  m_DefaultState: {fileID: 110283376}
+  m_DefaultState: {fileID: 110266162}
   m_States:
   - {fileID: 110283376}
   - {fileID: 110228274}
+  - {fileID: 110266162}
+  - {fileID: 110213780}
+  - {fileID: 110243508}
+  - {fileID: 110257636}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
+<<<<<<< HEAD
       first: {fileID: 0}
       second:
       - {fileID: 110136768}
       - {fileID: 110156130}
     data:
       first: {fileID: 110283376}
+=======
+      first: {fileID: 110213780}
+      second: []
+    data:
+      first: {fileID: 110266162}
+>>>>>>> 1561a4963b5ec9a4315a23ae0d7971cc8b233f2e
       second: []
     data:
       first: {fileID: 110228274}
       second: []
+<<<<<<< HEAD
+=======
+    data:
+      first: {fileID: 110283376}
+      second: []
+    data:
+      first: {fileID: 0}
+      second: []
+>>>>>>> 1561a4963b5ec9a4315a23ae0d7971cc8b233f2e
   m_MotionSetCount: 1
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_AnyStatePosition: {x: 24, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
