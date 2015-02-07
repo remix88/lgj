@@ -18,26 +18,23 @@ public class Princess : MonoBehaviour
 	public float tauntDelay = 1f;			// Delay for when the taunt should happen.
 	
 	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
-	private Transform groundCheck;			// A position marking where to check if the princess is grounded.
-	private bool grounded = false;			// Whether or not the princess is grounded.
 	private Animator anim;					// Reference to the princess's animator component.
-	
-	void Start() {
 
+	public PlayerControl Player;
+
+	void Start() {
+		Physics2D.IgnoreCollision(Player.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>());
 	}
 
 	void Awake()
 	{
-		// Setting up references.
-		groundCheck = transform.Find("groundCheck");
 		anim = GetComponent<Animator>();
 	}
 	
 	
 	void Update()
 	{
-		// The princess is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
+
 	}
 	
 	
@@ -52,11 +49,11 @@ public class Princess : MonoBehaviour
 			rigidbody2D.velocity = new Vector2(Mathf.Sign(rigidbody2D.velocity.x) * maxSpeed, rigidbody2D.velocity.y);
 		
 		// If the input is moving the princess right and the princess is facing left...
-		if(rigidbody2D.velocity.x > .5 && !facingRight)
+		if(facingRight && transform.position.x > Player.transform.position.x)
 			// ... flip the princess.
 			Flip();
 		// Otherwise if the input is moving the princess left and the princess is facing right...
-		else if(rigidbody2D.velocity.x < -.5 && facingRight)
+		else if(!facingRight && transform.position.x < Player.transform.position.x)
 			// ... flip the princess.
 			Flip();
 		
@@ -76,7 +73,13 @@ public class Princess : MonoBehaviour
 			// Make sure the princess can't jump again until the jump conditions from Update are satisfied.
 			jump = false;
 		}
-	}	
+
+		if(transform.position.x > Player.transform.position.x + 2) {
+			Player.SetRopeSide(-1);
+		} else if(transform.position.x < Player.transform.position.x - 2) {
+			Player.SetRopeSide(1);
+		}
+	}
 	
 	void Flip ()
 	{

@@ -22,6 +22,14 @@ public class PlayerControl : MonoBehaviour
 	private Animator anim;					// Reference to the player's animator component.
 
 	private GameObject jumpBeacon;
+	private GameObject ropeAttach;
+
+	public float RopeDistance = 1;
+	private int ropeSide = 0;
+
+	void Start() {
+		ropeAttach = transform.FindChild("RopeAttach").gameObject;
+	}
 
 	void Awake()
 	{
@@ -41,6 +49,12 @@ public class PlayerControl : MonoBehaviour
 		// If the jump button is pressed and the player is grounded then the player should jump.
 		if(Input.GetButtonDown("Jump") && grounded)
 			jump = true;
+	}
+
+	public void SetRopeSide(int side) {
+		ropeSide = side;
+		int facing = facingRight ? 1 : -1;
+		ropeAttach.transform.localPosition = new Vector2(RopeDistance * ropeSide * facing, 0);
 	}
 
 
