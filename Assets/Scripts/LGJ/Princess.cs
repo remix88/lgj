@@ -30,6 +30,7 @@ public class Princess : MonoBehaviour
 
 	void Start() {
 		Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
+		InvokeRepeating("Taunt", 1, 5);
 	}
 
 	void Awake()
@@ -65,11 +66,11 @@ public class Princess : MonoBehaviour
 
 	void FixedUpdate ()
 	{		
-		// If the princess's horizontal velocity is greater than the maxSpeed...
-		if(Mathf.Abs(rigidbody2D.velocity.x) > maxSpeed)
-			// ... set the princess's velocity to the maxSpeed in the x axis.
-			rigidbody2D.velocity = new Vector2(Mathf.Sign(rigidbody2D.velocity.x) * maxSpeed, rigidbody2D.velocity.y);
-		
+		if(Mathf.Abs(rigidbody2D.velocity.x) < maxSpeed) {
+			float diff = Player.PrincessFocus.transform.position.x - transform.position.x;
+			rigidbody2D.AddForce(new Vector2(Mathf.Sign(diff) * moveForce, 0));
+		}
+
 		// If the input is moving the princess right and the princess is facing left...
 		if(facingRight && transform.position.x > Player.transform.position.x)
 			// ... flip the princess.
@@ -124,16 +125,12 @@ public class Princess : MonoBehaviour
 		jump = true;
 	}
 	
-	
-	public IEnumerator Taunt()
+	public void Taunt()
 	{
 		// Check the random chance of taunting.
 		float tauntChance = Random.Range(0f, 100f);
 		if(tauntChance > tauntProbability)
-		{
-			// Wait for tauntDelay number of seconds.
-			yield return new WaitForSeconds(tauntDelay);
-			
+		{			
 			// If there is no clip currently playing.
 			if(!audio.isPlaying)
 			{

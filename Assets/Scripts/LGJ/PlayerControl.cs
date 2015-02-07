@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour
 	private Animator anim;					// Reference to the player's animator component.
 
 	private GameObject jumpBeacon;
-	private GameObject ropeAttach;
+	public GameObject PrincessFocus;
 	private Transform body;
 
 	public float RopeDistance = 1;
@@ -38,7 +38,7 @@ public class PlayerControl : MonoBehaviour
 	private float disabledUntil = 0f;
 
 	void Start() {
-		ropeAttach = transform.FindChild("Body/RopeAttach").gameObject;
+		PrincessFocus = transform.FindChild("Body/PrincessFocus").gameObject;
 		body = transform.Find("Body");
 	}
 
@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour
 	public void SetRopeSide(int side) {
 		ropeSide = side;
 		int facing = facingRight ? 1 : -1;
-		ropeAttach.transform.localPosition = new Vector2(RopeDistance * ropeSide * facing, 0);
+		PrincessFocus.transform.localPosition = new Vector2(RopeDistance * ropeSide * facing, 0);
 	}
 
 	void ProcessInput() {	
