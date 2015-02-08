@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 361e1e5d552ad444fb688b5203c01caa
+guid: f21f0b3ef48057c49964f82e669e117a
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy1-tail
-    21300002: enemy1-body
-    21300004: enemy1-eye
-    21300006: enemy1-eyelid
+    21300000: jump
+    21300002: jumpBad
+    21300004: jumpWorse
+    21300006: jumpWorst
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -25,11 +25,11 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: 1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -47,45 +47,45 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: enemy1-tail
+    - name: jump
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 167
-        height: 168
-      alignment: 5
-      pivot: {x: 1, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1-body
-      rect:
-        serializedVersion: 2
-        x: 168
-        y: 0
-        width: 305
-        height: 464
+        x: 10
+        y: 13
+        width: 148
+        height: 198
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1-eye
+    - name: jumpBad
       rect:
         serializedVersion: 2
-        x: 517
-        y: 303
-        width: 109
-        height: 100
+        x: 171
+        y: 13
+        width: 148
+        height: 198
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1-eyelid
+    - name: jumpWorse
       rect:
         serializedVersion: 2
-        x: 682
-        y: 318
-        width: 137
-        height: 136
+        x: 331
+        y: 13
+        width: 124
+        height: 198
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-  spritePackingTag: characters
+    - name: jumpWorst
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 14
+        width: 123
+        height: 197
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
   userData: 
