@@ -46,6 +46,7 @@ public class Princess : MonoBehaviour
 			Debug.LogError("Knight was not specified in Princess Inspector");
 		} else {
 			rope.connectedBody = Knight.gameObject.rigidbody2D;
+			rope.enabled = false;
 		}
 	}
 
