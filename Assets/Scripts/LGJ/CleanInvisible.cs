@@ -14,6 +14,8 @@ public class CleanInvisible : MonoBehaviour {
 	}
 
 	void OnBecameInvisible() {
-		Destroy (gameObject);
+		if(gameObject.activeSelf) {
+			Destroy (gameObject);
+		}
 	}
 }

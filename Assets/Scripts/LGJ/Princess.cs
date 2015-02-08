@@ -227,11 +227,11 @@ public class Princess : MonoBehaviour
 	}
 
 	void DangerImpact(Danger danger) {
-		rigidbody2D.AddForce(new Vector2(0, danger.VerticalForce));
+		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
 	}
 	
 	void DangerImpactContinuous(Danger danger) {
-		rigidbody2D.AddForce(new Vector2(0, danger.VerticalForce * Time.deltaTime * 10));
+		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce * Time.deltaTime * 10, danger.VerticalForce * Time.deltaTime * 10));
 	}
 	
 	void DangerEffect(Danger danger) {

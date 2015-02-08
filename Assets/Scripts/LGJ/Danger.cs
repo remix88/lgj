@@ -7,6 +7,7 @@ public class Danger : MonoBehaviour {
 	public float DamageOnStay = 1f;
 
 	public float VerticalForce = 1000f;
+	public float HorizontalForce = 0f;
 
 	// Use this for initialization
 	void Start () {
