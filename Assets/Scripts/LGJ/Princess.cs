@@ -86,21 +86,6 @@ public class Princess : MonoBehaviour
 		anim.SetBool("hurt", hurt);
 		anim.SetBool("jump", !grounded);
 
-		// Animation states
-		/*
-		if(hurt) {
-			anim.SetTrigger("hurt");
-		} else if(state == 3) {
-			anim.SetTrigger("walkworst");
-		} else if (state == 2) {
-			anim.SetTrigger("walkworse");
-		} else if (state == 1) {
-			anim.SetTrigger("walkbad");
-		} else {
-			anim.SetTrigger("walk");
-		}
-		*/
-
 		if(Time.time > disabledUntil) {
 			disabled = false;
 		}
