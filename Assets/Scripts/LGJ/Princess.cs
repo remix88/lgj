@@ -19,7 +19,7 @@ public class Princess : MonoBehaviour
 
 	private bool grounded = false;			// Whether or not the player is grounded.
 
-	public float JumpProbability = 0.2f;
+	public float JumpChance = 20;
 
 	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
 	private Animator anim;					// Reference to the princess's animator component.
@@ -42,7 +42,7 @@ public class Princess : MonoBehaviour
 	void Start() {
 		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
 		InvokeRepeating("Taunt", 1, 5);
-		InvokeRepeating("MaybeJump", 1, 5);
+		InvokeRepeating("MaybeJump", 1, 3);
 
 		if(Knight == null) {
 			Debug.LogError("Knight was not specified in Princess Inspector");
@@ -195,7 +195,7 @@ public class Princess : MonoBehaviour
 	}
 
 	public void MaybeJump() {
-		if(grounded && Random.Range(0f, 100f) > JumpProbability) {
+		if(grounded && Random.Range(0f, 100f) < JumpChance) {
 			Jump ();
 		}
 	}

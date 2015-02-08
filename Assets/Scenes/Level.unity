@@ -586,7 +586,7 @@ Transform:
   m_PrefabInternal: {fileID: 1063487423}
   m_GameObject: {fileID: 106884804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.8899994, y: -6.11999989, z: -1}
+  m_LocalPosition: {x: 185.990005, y: -6.13000011, z: -1}
   m_LocalScale: {x: 1.20000005, y: 1.20000005, z: 1.20000005}
   m_Children:
   - {fileID: 773930526}
@@ -2544,7 +2544,7 @@ Transform:
   m_PrefabInternal: {fileID: 1752770477}
   m_GameObject: {fileID: 584788006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.8600006, y: -6.53000021, z: 0}
+  m_LocalPosition: {x: 203.020004, y: -6.53999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 517724411}
@@ -2581,7 +2581,7 @@ LineRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c408a20e6503e3a4d975278ca8eb455b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2725,7 +2725,7 @@ MonoBehaviour:
   jumpForce: 1000
   taunts: []
   tauntProbability: 50
-  JumpProbability: .200000003
+  JumpChance: 20
   Knight: {fileID: 106884810}
 --- !u!1 &589537172
 GameObject:
@@ -4978,6 +4978,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 402102, guid: 32d27bf3aba55c042b716b21e1f7c723, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 185.990005
+      objectReference: {fileID: 0}
+    - target: {fileID: 402102, guid: 32d27bf3aba55c042b716b21e1f7c723, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -6.13000011
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32d27bf3aba55c042b716b21e1f7c723, type: 2}
   m_RootGameObject: {fileID: 106884804}
@@ -6514,11 +6522,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 64b12b15baf9644af9f0651e6705f0ef, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.42825317
+      value: 189.399994
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64b12b15baf9644af9f0651e6705f0ef, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -.151842594
+      value: -.699999988
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64b12b15baf9644af9f0651e6705f0ef, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6576,7 +6584,8 @@ Prefab:
       propertyPath: m_BackGroundColor.b
       value: .843137264
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400000, guid: 64b12b15baf9644af9f0651e6705f0ef, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 64b12b15baf9644af9f0651e6705f0ef, type: 2}
   m_RootGameObject: {fileID: 1972830846}
   m_IsPrefabParent: 0
@@ -8941,11 +8950,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 417186, guid: 5c87b06dcb114a14e885a45157701981, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -25.8600006
+      value: 203.020004
       objectReference: {fileID: 0}
     - target: {fileID: 417186, guid: 5c87b06dcb114a14e885a45157701981, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.53000021
+      value: -6.53999996
       objectReference: {fileID: 0}
     - target: {fileID: 417186, guid: 5c87b06dcb114a14e885a45157701981, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8979,6 +8988,10 @@ Prefab:
       propertyPath: Knight
       value: 
       objectReference: {fileID: 106884810}
+    - target: {fileID: 12017162, guid: 5c87b06dcb114a14e885a45157701981, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c408a20e6503e3a4d975278ca8eb455b, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c87b06dcb114a14e885a45157701981, type: 2}
   m_RootGameObject: {fileID: 584788006}
@@ -9714,8 +9727,8 @@ GameObject:
   - 20: {fileID: 1972830851}
   - 92: {fileID: 1972830850}
   - 124: {fileID: 1972830849}
-  - 114: {fileID: 1972830848}
   - 81: {fileID: 1972830847}
+  - 114: {fileID: 1972830853}
   m_Layer: 0
   m_Name: mainCamera
   m_TagString: MainCamera
@@ -9731,24 +9744,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 1243540802}
   m_GameObject: {fileID: 1972830846}
   m_Enabled: 1
---- !u!114 &1972830848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 64b12b15baf9644af9f0651e6705f0ef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1243540802}
-  m_GameObject: {fileID: 1972830846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a1ff7ff4ce484f1aad8887efed74b11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xMargin: 2
-  yMargin: 2
-  xSmooth: 2
-  ySmooth: 2
-  maxXAndY: {x: 200, y: 5}
-  minXAndY: {x: -200, y: 0}
 --- !u!124 &1972830849
 Behaviour:
   m_ObjectHideFlags: 0
@@ -9805,11 +9800,23 @@ Transform:
   m_PrefabInternal: {fileID: 1243540802}
   m_GameObject: {fileID: 1972830846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.42825317, y: -.151842594, z: -10}
+  m_LocalPosition: {x: 189.399994, y: -.699999988, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!114 &1972830853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1972830846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c977cac306b304ab56c0423ebe5bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 2
 --- !u!1001 &1988114454
 Prefab:
   m_ObjectHideFlags: 0
