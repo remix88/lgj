@@ -80,10 +80,14 @@ public class Princess : MonoBehaviour
 		} else {
 			state = 0;
 		}
+		anim.SetInteger("state", state);
 
 		hurt = health.GetLastDamage() > 0 && Time.time - health.GetLastDamage() < 0.5f;
-	
+		anim.SetBool("hurt", hurt);
+		anim.SetBool("jump", !grounded);
+
 		// Animation states
+		/*
 		if(hurt) {
 			anim.SetTrigger("hurt");
 		} else if(state == 3) {
@@ -95,6 +99,7 @@ public class Princess : MonoBehaviour
 		} else {
 			anim.SetTrigger("walk");
 		}
+		*/
 
 		if(Time.time > disabledUntil) {
 			disabled = false;

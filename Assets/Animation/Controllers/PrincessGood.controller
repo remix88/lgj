@@ -9,37 +9,25 @@ AnimatorController:
   serializedVersion: 2
   m_AnimatorParameters:
   - m_Name: hurt
-    m_Type: 9
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: kiss
-    m_Type: 9
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: walk
-    m_Type: 9
+  - m_Name: state
+    m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: walkbad
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: walkworse
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: walkworst
-    m_Type: 9
+  - m_Name: jump
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -68,29 +56,21 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: jump
     m_EventTreshold: 0
     m_ExitTime: .899999976
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
-  m_CanTransitionToSelf: 0
---- !u!1101 &110105956
-Transition:
-  serializedVersion: 2
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 0}
-  m_DstState: {fileID: 110257636}
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 1
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 2
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
     m_ConditionEvent: hurt
-    m_EventTreshold: 0
+    m_EventTreshold: 2
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 2
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -108,8 +88,20 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: jump
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
     m_EventTreshold: 0
     m_ExitTime: .899999976
   m_Atomic: 1
@@ -128,9 +120,21 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: jump
     m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 3
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 3
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 3
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -148,9 +152,13 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: hurt
     m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 3
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -168,9 +176,21 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: walkworst
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 3
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 3
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 3
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: jump
+    m_EventTreshold: 3
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -188,9 +208,13 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: hurt
     m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 1
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -208,9 +232,21 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: walkbad
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 1
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: jump
+    m_EventTreshold: 1
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 1
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 1
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -228,9 +264,13 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: hurt
     m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 2
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -248,9 +288,21 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 1
+    m_ConditionEvent: jump
     m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 1
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 1
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 1
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -288,9 +340,21 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: walkworse
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 2
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 2
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 2
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: jump
+    m_EventTreshold: 2
     m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
@@ -308,8 +372,44 @@ Transition:
   m_TransitionDuration: .100000001
   m_TransitionOffset: 0
   m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: hurt
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: kiss
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 2
+    m_ConditionEvent: jump
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  m_Atomic: 1
+  m_Solo: 0
+  m_Mute: 0
+  m_CanTransitionToSelf: 0
+--- !u!1101 &110186308
+Transition:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_SrcState: {fileID: 0}
+  m_DstState: {fileID: 110257636}
+  m_TransitionDuration: .100000001
+  m_TransitionOffset: 0
+  m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: walk
+    m_ConditionEvent: hurt
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
+  - m_ConditionMode: 6
+    m_ConditionEvent: state
     m_EventTreshold: 0
     m_ExitTime: .899999976
   m_Atomic: 1
@@ -539,7 +639,6 @@ StateMachine:
     data:
       first: {fileID: 0}
       second:
-      - {fileID: 110105956}
       - {fileID: 110136688}
       - {fileID: 110185778}
       - {fileID: 110152812}
@@ -552,23 +651,45 @@ StateMachine:
       - {fileID: 110147576}
       - {fileID: 110103884}
       - {fileID: 110110158}
+      - {fileID: 110186308}
     data:
-      first: {fileID: 110283376}
+      first: {fileID: 110213780}
       second: []
     data:
       first: {fileID: 110228274}
-      second: []
-    data:
-      first: {fileID: 110266162}
-      second: []
-    data:
-      first: {fileID: 110213780}
       second: []
     data:
       first: {fileID: 110243508}
       second: []
     data:
       first: {fileID: 110257636}
+      second: []
+    data:
+      first: {fileID: 110266162}
+      second: []
+    data:
+      first: {fileID: 110283376}
+      second: []
+    data:
+      first: {fileID: 110213940}
+      second: []
+    data:
+      first: {fileID: 110258738}
+      second: []
+    data:
+      first: {fileID: 110260382}
+      second: []
+    data:
+      first: {fileID: 110269082}
+      second: []
+    data:
+      first: {fileID: 110269780}
+      second: []
+    data:
+      first: {fileID: 110283080}
+      second: []
+    data:
+      first: {fileID: 110291506}
       second: []
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: 24, y: 120, z: 0}
