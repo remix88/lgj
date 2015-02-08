@@ -8,11 +8,11 @@ public enum ShowHealthBar {
 public class Mortal : MonoBehaviour {
 
 	public float TotalHealth = 100;
+	public float CurrentHealth = 100;
 	public GameObject HealthBar = null;
 	public ShowHealthBar ShowHealthBar = ShowHealthBar.Always;
 
 	private float fullHealthScale = 0f;
-	private float currentHealth = 1;
 	private float lastDamage = 0f;
 
 	private GameObject healthBarContent;
@@ -26,7 +26,7 @@ public class Mortal : MonoBehaviour {
 			}
 			healthBarContent = HealthBar.transform.Find("Content").gameObject;
 		}
-		currentHealth = TotalHealth;
+		CurrentHealth = TotalHealth;
 	}
 	
 	// Update is called once per frame
@@ -37,11 +37,11 @@ public class Mortal : MonoBehaviour {
 	}
 
 	public void Hurt(float damage) {
-		currentHealth -= damage;
+		CurrentHealth -= damage;
 		lastDamage = Time.time;
 		if(HealthBar != null) {
 			HealthBar.SetActive(true);
-			healthBarContent.transform.localScale = new Vector2(currentHealth / TotalHealth * fullHealthScale, 1);
+			healthBarContent.transform.localScale = new Vector2(CurrentHealth / TotalHealth * fullHealthScale, 1);
 		}
 	}
 }

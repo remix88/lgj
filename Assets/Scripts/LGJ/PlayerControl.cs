@@ -30,6 +30,7 @@ public class PlayerControl : MonoBehaviour
 	private GameObject jumpBeacon;
 	public GameObject PrincessFocus;
 	private Transform body;
+	private Mortal health;
 
 	public float RopeDistance = 1;
 	private int ropeSide = 0;
@@ -51,6 +52,7 @@ public class PlayerControl : MonoBehaviour
 		body = transform.Find("Body");
 		groundCheck = transform.Find("groundCheck");
 		anim = body.GetComponent<Animator>();
+		health = GetComponent<Mortal>();
 
 		jumpBeacon = (GameObject)Resources.Load("Prefabs/JumpBeacon");
 	}
@@ -59,7 +61,7 @@ public class PlayerControl : MonoBehaviour
 	void Update()
 	{
 		// The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies"));
+		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies") | 1 << LayerMask.NameToLayer("Princess"));
 		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask); 
 
 		ProcessInput();
@@ -68,7 +70,7 @@ public class PlayerControl : MonoBehaviour
 			disabled = false;
 		}
 
-		if(Mathf.Abs(rigidbody2D.velocity.x) > 0.1f) {
+		if(h != 0) {
 			idle = false;
 		} else {
 			idle = true;
@@ -135,8 +137,10 @@ public class PlayerControl : MonoBehaviour
 		if(jump)
 		{
 			// Play a random jump audio clip.
-			int i = Random.Range(0, jumpClips.Length);
-			AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
+			if(jumpClips.Length > 0) {
+				int i = Random.Range(0, jumpClips.Length);
+				AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
+			}
 
 			// Add a vertical force to the player.
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
@@ -154,6 +158,12 @@ public class PlayerControl : MonoBehaviour
 			rigidbody2D.velocity = new Vector3(0, -8f);
 			plunge = false;
 			plunging = true;
+		}
+
+		if(Physics2D.OverlapCircle(transform.position, 2, 1 << LayerMask.NameToLayer("Princess"))) {
+			scared = true;
+		} else {
+			scared = false;
 		}
 	}
 	
@@ -225,11 +235,15 @@ public class PlayerControl : MonoBehaviour
 	void OnTriggerStay2D(Collider2D collider) {
 		if(collider.transform.tag == "Danger") {
 			Danger danger = collider.gameObject.GetComponent<Danger>();
-			Mortal mortal = GetComponent<Mortal>();
 			float damage = Time.deltaTime * danger.DamagePerSecond;
-			if(mortal != null) {
-				mortal.Hurt(damage);
-			}
+			health.Hurt(damage);
+		}
+	}
+
+	void OnCollisionStay2D(Collision2D collision) {
+		if(collision.transform.tag == "Princess") {
+			Princess princess = collision.gameObject.GetComponent<Princess>();
+			health.Hurt(Time.deltaTime * princess.DamagePerSecond);
 		}
 	}
 }
