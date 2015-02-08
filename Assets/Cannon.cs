@@ -25,7 +25,9 @@ public class Cannon : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		rigidbody2D.AddForce(rigidbody2D.velocity * -100);
+		if(rigidbody2D != null) {
+			rigidbody2D.AddForce(rigidbody2D.velocity * -100);
+		}
 	}
 
 	public void Shoot() {

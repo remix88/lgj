@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class CleanInvisible : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
