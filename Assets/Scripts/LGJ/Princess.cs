@@ -7,8 +7,8 @@ public class Princess : MonoBehaviour
 	public bool facingRight = true;			// For determining which way the princess is currently facing.
 	[HideInInspector]
 	public bool jump = false;				// Condition for whether the princess should jump.
-	
-	
+
+	public float DamagePerSecond = 10f;
 	public float moveForce = 365f;			// Amount of force added to move the princess left and right.
 	public float maxSpeed = 5f;				// The fastest the princess can travel in the x axis.
 	public AudioClip[] jumpClips;			// Array of clips for when the princess jumps.
@@ -31,11 +31,14 @@ public class Princess : MonoBehaviour
 	private LineRenderer line;
 	private GameObject ropeAttach;
 	private SpringJoint2D rope;
+	private Mortal health;
 
+	private int state = 0;
+	private bool hurt = false;
 	private bool lasso = false;
 
 	void Start() {
-		Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
+		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
 		InvokeRepeating("Taunt", 1, 5);
 		InvokeRepeating("MaybeJump", 1, 5);
 	}
@@ -48,6 +51,7 @@ public class Princess : MonoBehaviour
 		line = GetComponent<LineRenderer>();
 		ropeAttach = transform.Find("RopeAttach").gameObject;
 		rope = GetComponent<SpringJoint2D>();
+		health = GetComponent<Mortal>();
 	}
 	
 	
@@ -56,25 +60,27 @@ public class Princess : MonoBehaviour
 		if(lasso) {
 			DrawLasso();
 		}
-		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies"));
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask); 
-	}
-
-	void ThrowLasso() {
-		lasso = true;
-		rope.enabled = true;
-	}
-
-	void DrawLasso() {
-		line.SetVertexCount(2);
-		line.SetPosition(0, ropeAttach.transform.position);
-		line.SetPosition(1, Player.transform.position);
-	}
-
-	void StopLasso() {
-		line.SetVertexCount(0);
-		lasso = false;
-		rope.enabled = false;
+		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies") | 1 << LayerMask.NameToLayer("Princess"));
+		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask);
+		if(health.CurrentHealth < .25f * health.TotalHealth) {
+			state = 3;
+		} else if (health.CurrentHealth < 0.5f * health.TotalHealth) {
+			state = 2;
+		} else if (health.CurrentHealth < 0.75f * health.TotalHealth) {
+			state = 1;
+		} else {
+			state = 0;
+		}
+	
+		if(state == 3) {
+			anim.SetTrigger("walkworst");
+		} else if (state == 2) {
+			anim.SetTrigger("walkworse");
+		} else if (state == 1) {
+			anim.SetTrigger("walkbad");
+		} else {
+			anim.SetTrigger("walk");
+		}
 	}
 
 	void FixedUpdate ()
@@ -122,6 +128,23 @@ public class Princess : MonoBehaviour
 		if(lasso && transform.position.y > Player.transform.position.y) {
 			StopLasso();
 		}
+	}
+
+	void ThrowLasso() {
+		lasso = true;
+		rope.enabled = true;
+	}
+	
+	void DrawLasso() {
+		line.SetVertexCount(2);
+		line.SetPosition(0, ropeAttach.transform.position);
+		line.SetPosition(1, Player.transform.position);
+	}
+	
+	void StopLasso() {
+		line.SetVertexCount(0);
+		lasso = false;
+		rope.enabled = false;
 	}
 	
 	void Flip ()
