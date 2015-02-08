@@ -311,5 +311,9 @@ public class PlayerControl : MonoBehaviour
 				DangerImpact(danger);
 			}
 		}
+		if(collision.transform.tag == "Princess") {
+			Princess princess = collision.gameObject.GetComponent<Princess>();
+			health.Hurt(Time.deltaTime * princess.DamagePerSecond);
+		}
 	}
 }

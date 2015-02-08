@@ -50,6 +50,8 @@ public class Princess : MonoBehaviour
 			rope.connectedBody = Knight.gameObject.rigidbody2D;
 			rope.enabled = false;
 		}
+
+		CheckDirection();
 	}
 
 	void Awake()
@@ -91,6 +93,17 @@ public class Princess : MonoBehaviour
 		}
 	}
 
+	void CheckDirection() {
+		// If the input is moving the princess right and the princess is facing left...
+		if(facingRight && transform.position.x > Knight.transform.position.x)
+			// ... flip the princess.
+			Flip();
+		// Otherwise if the input is moving the princess left and the princess is facing right...
+		else if(!facingRight && transform.position.x < Knight.transform.position.x)
+			// ... flip the princess.
+			Flip();
+	}
+
 	void FixedUpdate ()
 	{	
 		if(Knight == null || disabled) {
@@ -102,14 +115,7 @@ public class Princess : MonoBehaviour
 		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
 		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
 
-		// If the input is moving the princess right and the princess is facing left...
-		if(facingRight && transform.position.x > Knight.transform.position.x)
-			// ... flip the princess.
-			Flip();
-		// Otherwise if the input is moving the princess left and the princess is facing right...
-		else if(!facingRight && transform.position.x < Knight.transform.position.x)
-			// ... flip the princess.
-			Flip();
+		CheckDirection();
 		
 		// If the princess should jump...
 		if(jump && grounded)

@@ -31,10 +31,14 @@ public class GameController : MonoBehaviour, HealthListener {
 
 		startPosition = CameraRig.transform.position.x;
 
+		StartLevel();
+	}
+
+	public void StartLevel() {
 		if(ShowIntro) {
 			ComicController.StartComic();
 		}
-
+		
 		Knight.Disable(true);
 		Princess.Disable(true);
 	}
@@ -59,8 +63,9 @@ public class GameController : MonoBehaviour, HealthListener {
 		}
 	}
 
-	public void OnLevelWasLoaded(int level) {
+	void OnLevelWasLoaded(int level) {
 		ShowIntro = false;
+		GetReady ();
 	}
 
 	public void LoadGame() {
