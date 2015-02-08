@@ -170,6 +170,7 @@ public class Princess : MonoBehaviour
 		line.SetVertexCount(2);
 		line.SetPosition(0, ropeAttach.transform.position);
 		line.SetPosition(1, Knight.transform.position);
+		//line.material.mainTextureScale = new Vector2(0.5f,1);
 	}
 	
 	void StopLasso() {
