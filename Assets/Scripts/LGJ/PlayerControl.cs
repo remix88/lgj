@@ -112,7 +112,7 @@ public class PlayerControl : MonoBehaviour
 			// If the jump button is pressed and the player is grounded then the player should jump.
 			if(Input.GetButtonDown("Jump") && grounded && Time.time > lastJump + 0.5f) {
 				jump = true;
-			} else if (Input.GetKeyDown(KeyCode.DownArrow) && !plunging) {
+			} else if (Input.GetAxis("Vertical") < 0 && !plunging) {
 				plunge = true;
 			}
 		} else {
@@ -226,6 +226,9 @@ public class PlayerControl : MonoBehaviour
 
 	void DangerImpact(Danger danger) {
 		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
+		if(danger.HorizontalForce != 0) {
+			Disable(0.3f);
+		}
 	}
 	
 	void DangerImpactContinuous(Danger danger) {
