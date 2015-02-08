@@ -11,11 +11,11 @@ public class Princess : MonoBehaviour
 	public float DamagePerSecond = 10f;
 	public float moveForce = 365f;			// Amount of force added to move the princess left and right.
 	public float maxSpeed = 5f;				// The fastest the princess can travel in the x axis.
+	public float LassoDistance = 10f;		// The maximum distance at which the Princess can use the lasso.
 	public AudioClip[] jumpClips;			// Array of clips for when the princess jumps.
 	public float jumpForce = 1000f;			// Amount of force added when the princess jumps.
 	public AudioClip[] taunts;				// Array of clips for when the princess taunts.
 	public float tauntProbability = 50f;	// Chance of a taunt happening.
-	public float tauntDelay = 1f;			// Delay for when the taunt should happen.
 
 	private bool grounded = false;			// Whether or not the player is grounded.
 
@@ -36,6 +36,8 @@ public class Princess : MonoBehaviour
 	private int state = 0;
 	private bool hurt = false;
 	private bool lasso = false;
+	private bool disabled = false;
+	private float disabledUntil = 0f;
 
 	void Start() {
 		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
@@ -78,8 +80,13 @@ public class Princess : MonoBehaviour
 		} else {
 			state = 0;
 		}
+
+		hurt = health.GetLastDamage() > 0 && Time.time - health.GetLastDamage() < 0.5f;
 	
-		if(state == 3) {
+		// Animation states
+		if(hurt) {
+			anim.SetTrigger("hurt");
+		} else if(state == 3) {
 			anim.SetTrigger("walkworst");
 		} else if (state == 2) {
 			anim.SetTrigger("walkworse");
@@ -88,10 +95,17 @@ public class Princess : MonoBehaviour
 		} else {
 			anim.SetTrigger("walk");
 		}
+
+		if(Time.time > disabledUntil) {
+			disabled = false;
+		}
 	}
 
 	void FixedUpdate ()
 	{		
+		if(Knight == null || disabled) {
+			return;
+		}
 		// If the princess is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
 		float h = Mathf.Sign(Knight.PrincessFocus.transform.position.x - transform.position.x);
 		// ... add a force to the princess.
@@ -108,7 +122,7 @@ public class Princess : MonoBehaviour
 			Flip();
 		
 		// If the princess should jump...
-		if(jump)
+		if(jump && grounded)
 		{			
 			// Play a random jump audio clip.
 			if(jumpClips.Length > 0) {
@@ -131,12 +145,20 @@ public class Princess : MonoBehaviour
 		}
 
 		// Use lasso when falling
-		if(!lasso && transform.position.y < Knight.transform.position.y - 2f && rigidbody2D.velocity.y < -0.5) {
+		if(!lasso 
+		   && transform.position.y < Knight.transform.position.y - 2f 
+		   && rigidbody2D.velocity.y < -0.5
+		   && Vector2.Distance(transform.position, Knight.transform.position) < LassoDistance) {
 			ThrowLasso();
 		}
 		if(lasso && transform.position.y > Knight.transform.position.y - 2f) {
 			StopLasso();
 		}
+	}
+
+	void Disable(float seconds) {
+		disabled = true;
+		disabledUntil = Time.time + seconds;
 	}
 
 	void ThrowLasso() {
@@ -212,5 +234,41 @@ public class Princess : MonoBehaviour
 		else
 			// Otherwise return this index.
 			return i;
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		if(!hurt) {
+			if(collider.transform.tag == "Danger") {
+				Danger danger = collider.gameObject.GetComponent<Danger>();
+				health.Hurt(danger.DamageOnTouch);
+				hurt = true;
+			}
+		}
+	}
+	
+	void OnTriggerStay2D(Collider2D collider) {
+		if(collider.transform.tag == "Danger") {
+			Danger danger = collider.gameObject.GetComponent<Danger>();
+			float damage = Time.deltaTime * danger.DamagePerSecond;
+			health.Hurt(damage);
+		}
+	}
+	
+	void OnCollisionEnter2D(Collision2D collision) {
+		if(!hurt) {
+			if(collision.transform.tag == "Danger") {
+				Danger danger = collision.gameObject.GetComponent<Danger>();
+				health.Hurt(danger.DamageOnTouch);
+				hurt = true;
+				if(rigidbody2D.velocity.y < 0.5f) {
+					Disable(0.3f);
+					rigidbody2D.AddRelativeForce(-100 * Vector2.right);
+				}
+			}
+		}
+	}
+	
+	void OnCollisionStay2D(Collision2D collision) {
+
 	}
 }
