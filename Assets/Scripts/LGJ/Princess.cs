@@ -285,7 +285,7 @@ public class Princess : MonoBehaviour
 			if(collision.transform.tag == "Danger") {
 				Danger danger = collision.gameObject.GetComponent<Danger>();
 				DangerEffectContinuous(danger);
-				DangerImpactContinuous(danger);
+				DangerImpact(danger);
 			}
 		}
 	}
