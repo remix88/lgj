@@ -226,21 +226,47 @@ public class Princess : MonoBehaviour
 			return i;
 	}
 
+	void DangerImpact(Danger danger) {
+		rigidbody2D.AddForce(new Vector2(0, danger.VerticalForce));
+	}
+	
+	void DangerImpactContinuous(Danger danger) {
+		rigidbody2D.AddForce(new Vector2(0, danger.VerticalForce * Time.deltaTime * 10));
+	}
+	
+	void DangerEffect(Danger danger) {
+		health.Hurt(danger.DamageOnTouch);
+		hurt = true;
+		if(rigidbody2D.velocity.y < 0.5f) {
+			Disable(0.3f);
+			rigidbody2D.AddRelativeForce(-100 * Vector2.right);
+		}
+	}
+	
+	void DangerEffectContinuous(Danger danger) {
+		float damage = Time.deltaTime * danger.DamageOnStay;
+		health.Hurt(damage);
+	}
+	
 	void OnTriggerEnter2D(Collider2D collider) {
 		if(!hurt) {
 			if(collider.transform.tag == "Danger") {
 				Danger danger = collider.gameObject.GetComponent<Danger>();
-				health.Hurt(danger.DamageOnTouch);
-				hurt = true;
+				DangerEffect (danger);
+				DangerImpact(danger);
 			}
 		}
 	}
 	
 	void OnTriggerStay2D(Collider2D collider) {
-		if(collider.transform.tag == "Danger") {
-			Danger danger = collider.gameObject.GetComponent<Danger>();
-			float damage = Time.deltaTime * danger.DamagePerSecond;
-			health.Hurt(damage);
+		if(!hurt) {
+			if(collider.transform.tag == "Danger") {
+				if(collider.transform.tag == "Danger") {
+					Danger danger = collider.gameObject.GetComponent<Danger>();
+					DangerEffectContinuous (danger);
+					DangerImpactContinuous(danger);
+				}
+			}
 		}
 	}
 	
@@ -248,17 +274,19 @@ public class Princess : MonoBehaviour
 		if(!hurt) {
 			if(collision.transform.tag == "Danger") {
 				Danger danger = collision.gameObject.GetComponent<Danger>();
-				health.Hurt(danger.DamageOnTouch);
-				hurt = true;
-				if(rigidbody2D.velocity.y < 0.5f) {
-					Disable(0.3f);
-					rigidbody2D.AddRelativeForce(-100 * Vector2.right);
-				}
+				DangerEffect(danger);
+				DangerImpact(danger);
 			}
 		}
 	}
 	
 	void OnCollisionStay2D(Collision2D collision) {
-
+		if(!hurt) {
+			if(collision.transform.tag == "Danger") {
+				Danger danger = collision.gameObject.GetComponent<Danger>();
+				DangerEffectContinuous(danger);
+				DangerImpactContinuous(danger);
+			}
+		}
 	}
 }
