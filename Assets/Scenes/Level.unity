@@ -3149,8 +3149,7 @@ MonoBehaviour:
   DamagePerSecond: 10
   moveForce: 12
   maxSpeed: 15
-  jumpClips:
-  - {fileID: 8300000, guid: dafa1cc4eb8714341a7c595abfba35d8, type: 3}
+  jumpClips: []
   jumpForce: 1000
   taunts: []
   tauntProbability: 50
@@ -3808,10 +3807,7 @@ MonoBehaviour:
   h: 0
   moveForce: 365
   maxSpeed: 8
-  jumpClips:
-  - {fileID: 8300000, guid: 50a8d8a939a0f4e77a0dac6ecd2e582b, type: 3}
-  - {fileID: 8300000, guid: fc55d077383484ac0ad66aa17fcd746f, type: 3}
-  - {fileID: 8300000, guid: dafa1cc4eb8714341a7c595abfba35d8, type: 3}
+  jumpClips: []
   jumpForce: 1000
   taunts:
   - {fileID: 8300000, guid: 27cbebf9d650249e5b032494eae5322c, type: 3}
