@@ -86,13 +86,13 @@ public class Princess : MonoBehaviour
 		anim.SetBool("hurt", hurt);
 		anim.SetBool("jump", !grounded);
 
-		if(Time.time > disabledUntil) {
+		if(disabledUntil >= 0 && Time.time > disabledUntil) {
 			disabled = false;
 		}
 	}
 
 	void FixedUpdate ()
-	{		
+	{	
 		if(Knight == null || disabled) {
 			return;
 		}
@@ -146,7 +146,12 @@ public class Princess : MonoBehaviour
 		}
 	}
 
-	void Disable(float seconds) {
+	public void Disable(bool disable) {
+		disabled = disable;
+		disabledUntil = -1;
+	}
+
+	public void Disable(float seconds) {
 		disabled = true;
 		disabledUntil = Time.time + seconds;
 	}

@@ -8,14 +8,18 @@ public class GameController : MonoBehaviour, HealthListener {
 	public Princess Princess;
 	public GameObject CameraRig;
 	public GameObject RetryCanvas;
+	public ComicController ComicController;
+	public bool ShowIntro = true;
 
 	private Mortal knightHealth;
 	private Mortal princessHealth;
 
 	float startPosition = 0;
 
-	public float score = 0;
-	public float distance = 0;
+	float score = 0;
+	float distance = 0;
+
+	bool getReady = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +30,21 @@ public class GameController : MonoBehaviour, HealthListener {
 		princessHealth.AddHealthListener(this);
 
 		startPosition = CameraRig.transform.position.x;
+
+		if(ShowIntro) {
+			ComicController.StartComic();
+		}
+
+		Knight.Disable(true);
+		Princess.Disable(true);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		distance = startPosition - CameraRig.transform.position.x;
+		if(getReady && Input.GetAxis("Horizontal") != 0) {
+			StartGame();
+		}
 	}
 
 	public void OnHealthChange(Mortal health, float oldValue) {
@@ -45,8 +59,22 @@ public class GameController : MonoBehaviour, HealthListener {
 		}
 	}
 
-	public void StartGame() {
+	public void OnLevelWasLoaded(int level) {
+		ShowIntro = false;
+	}
+
+	public void LoadGame() {
 		Application.LoadLevel (Application.loadedLevelName);
+	}
+
+	public void StartGame() {
+		CameraRig.GetComponent<CameraScroll>().StartScrolling();
+		Knight.Disable(false);
+		Princess.Disable(false);
+	}
+
+	public void GetReady() {
+		getReady = true;
 	}
 
 	public void GameOver() {
@@ -65,5 +93,10 @@ public class GameController : MonoBehaviour, HealthListener {
 		scoreText.GetComponent<Text>().text = score+"";
 
 		RetryCanvas.SetActive(true);
+	}
+
+	void StartComic() {
+		ComicController.StartComic();
+		ShowIntro = false;
 	}
 }

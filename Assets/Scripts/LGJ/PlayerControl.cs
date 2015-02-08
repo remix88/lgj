@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour
 
 		ProcessInput();
 
-		if(Time.time > disabledUntil && !dead) {
+		if(disabledUntil >= 0 && Time.time > disabledUntil) {
 			disabled = false;
 		}
 
@@ -170,7 +170,6 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 	
-	
 	void Flip ()
 	{
 		// Switch the way the player is labelled as facing.
@@ -221,10 +220,15 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	public void Die() {
-		disabled = true;
+		Disable (true);
 		dead = true;
 	}
 
+	public void Disable(bool disable) {
+		disabled = disable;
+		disabledUntil = -1;
+	}
+	
 	public void Disable(float seconds) {
 		disabled = true;
 		disabledUntil = Time.time + seconds;
