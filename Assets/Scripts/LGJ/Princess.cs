@@ -16,29 +16,38 @@ public class Princess : MonoBehaviour
 	public AudioClip[] taunts;				// Array of clips for when the princess taunts.
 	public float tauntProbability = 50f;	// Chance of a taunt happening.
 	public float tauntDelay = 1f;			// Delay for when the taunt should happen.
-	
+
+	private bool grounded = false;			// Whether or not the player is grounded.
+
+	public float JumpProbability = 0.2f;
+
 	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
 	private Animator anim;					// Reference to the princess's animator component.
 
 	public PlayerControl Player;
 
+	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private Transform body;
 	private LineRenderer line;
 	private GameObject ropeAttach;
+	private SpringJoint2D rope;
 
 	private bool lasso = false;
 
 	void Start() {
 		Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
 		InvokeRepeating("Taunt", 1, 5);
+		InvokeRepeating("MaybeJump", 1, 5);
 	}
 
 	void Awake()
 	{
 		body = transform.Find("Body");
+		groundCheck = transform.Find("groundCheck");
 		anim = body.gameObject.GetComponent<Animator>();
 		line = GetComponent<LineRenderer>();
 		ropeAttach = transform.Find("RopeAttach").gameObject;
+		rope = GetComponent<SpringJoint2D>();
 	}
 	
 	
@@ -47,10 +56,13 @@ public class Princess : MonoBehaviour
 		if(lasso) {
 			DrawLasso();
 		}
+		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies"));
+		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask); 
 	}
 
 	void ThrowLasso() {
 		lasso = true;
+		rope.enabled = true;
 	}
 
 	void DrawLasso() {
@@ -62,17 +74,16 @@ public class Princess : MonoBehaviour
 	void StopLasso() {
 		line.SetVertexCount(0);
 		lasso = false;
+		rope.enabled = false;
 	}
 
 	void FixedUpdate ()
 	{		
 		// If the princess is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
 		float h = Mathf.Sign(Player.PrincessFocus.transform.position.x - transform.position.x);
-		if(h * rigidbody2D.velocity.x < maxSpeed) {
-			// ... add a force to the princess.
-			float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
-			rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
-		}
+		// ... add a force to the princess.
+		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
+		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
 
 		// If the input is moving the princess right and the princess is facing left...
 		if(facingRight && transform.position.x > Player.transform.position.x)
@@ -122,6 +133,12 @@ public class Princess : MonoBehaviour
 		Vector3 theScale = body.localScale;
 		theScale.x *= -1;
 		body.localScale = theScale;
+	}
+
+	public void MaybeJump() {
+		if(grounded && Random.Range(0f, 100f) > JumpProbability) {
+			Jump ();
+		}
 	}
 
 	public void Jump() {
