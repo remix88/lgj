@@ -36,6 +36,10 @@ public class Mortal : MonoBehaviour {
 		}
 	}
 
+	public float GetLastDamage() {
+		return lastDamage;
+	}
+
 	public void Hurt(float damage) {
 		CurrentHealth -= damage;
 		lastDamage = Time.time;

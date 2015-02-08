@@ -41,6 +41,7 @@ public class PlayerControl : MonoBehaviour
 	private bool idle = true;
 	private bool scared = false;
 	private bool plunging = false;
+	private bool hurt = false;
 
 	void Start() {
 
@@ -70,16 +71,17 @@ public class PlayerControl : MonoBehaviour
 			disabled = false;
 		}
 
-		if(h != 0) {
-			idle = false;
-		} else {
-			idle = true;
-		}
+		// Character states
+		idle = h == 0;
 		if(grounded && plunging) {
 			plunging = false;
 		}
+		hurt = Time.time - health.GetLastDamage() < 0.5f;
 
-		if(plunging) {
+		// Animation states
+		if(hurt) {
+			anim.SetTrigger("idlescared");
+		} else if(plunging) {
 			anim.SetTrigger("plunge");
 		} else if(idle) {
 			if(scared) {

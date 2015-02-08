@@ -124,10 +124,10 @@ public class Princess : MonoBehaviour
 		}
 
 		// Use lasso when falling
-		if(!lasso && transform.position.y < Player.transform.position.y && rigidbody2D.velocity.y < -0.5) {
+		if(!lasso && transform.position.y < Player.transform.position.y - 2f && rigidbody2D.velocity.y < -0.5) {
 			ThrowLasso();
 		}
-		if(lasso && transform.position.y > Player.transform.position.y) {
+		if(lasso && transform.position.y > Player.transform.position.y - 2f) {
 			StopLasso();
 		}
 	}
