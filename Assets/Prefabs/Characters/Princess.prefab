@@ -566,11 +566,11 @@ MonoBehaviour:
   DamagePerSecond: 10
   moveForce: 12
   maxSpeed: 15
+  LassoDistance: 10
   jumpClips: []
   jumpForce: 1000
   taunts: []
   tauntProbability: 50
-  tauntDelay: 1
   JumpProbability: .200000003
   Knight: {fileID: 0}
 --- !u!120 &12017162
