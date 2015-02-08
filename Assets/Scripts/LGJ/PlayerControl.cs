@@ -76,8 +76,8 @@ public class PlayerControl : MonoBehaviour
 		if(grounded && plunging) {
 			plunging = false;
 		}
-		hurt = Time.time - health.GetLastDamage() < 0.5f;
-
+		hurt = health.GetLastDamage() > 0 && Time.time - health.GetLastDamage() < 0.5f;
+		
 		// Animation states
 		if(hurt) {
 			anim.SetTrigger("idlescared");
