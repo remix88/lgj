@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 414356}
   - 212: {fileID: 21214356}
   - 60: {fileID: 6064140}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Spikes_of_dooooom
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
