@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11412944}
   - 114: {fileID: 11412948}
   m_Layer: 13
-  m_Name: Bullet
+  m_Name: Fireball
   m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112944}
   m_LocalRotation: {x: 0, y: 0, z: .305438489, w: .952211797}
-  m_LocalPosition: {x: .529999971, y: -.219999999, z: 0}
+  m_LocalPosition: {x: -.330000013, y: .300000012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 412946}
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationOffset: 35.5690918
+  MinSpeedForRotation: 5
 --- !u!114 &11412944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,6 +222,7 @@ MonoBehaviour:
   DamageOnTouch: 10
   DamageOnStay: 1
   VerticalForce: 1000
+  HorizontalForce: 0
 --- !u!114 &11412946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,6 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootingInterval: 2
   Power: 20
+  bullet: {fileID: 112944}
+  aim: {fileID: 112948}
 --- !u!114 &11412948
 MonoBehaviour:
   m_ObjectHideFlags: 1

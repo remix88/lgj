@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour, HealthListener {
@@ -60,6 +61,9 @@ public class GameController : MonoBehaviour, HealthListener {
 	}
 
 	void ShowScore() {
+		GameObject scoreText = RetryCanvas.transform.FindChild("ScoreVar").gameObject;
+		scoreText.GetComponent<Text>().text = score+"";
+
 		RetryCanvas.SetActive(true);
 	}
 }

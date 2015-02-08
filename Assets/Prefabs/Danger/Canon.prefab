@@ -13,6 +13,7 @@ GameObject:
   - 50: {fileID: 5018774}
   - 114: {fileID: 11418774}
   - 114: {fileID: 11472376}
+  - 114: {fileID: 11484018}
   m_Layer: 13
   m_Name: Bullet
   m_TagString: Danger
@@ -186,6 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootingInterval: 2
   Power: 20
+  bullet: {fileID: 100876}
+  aim: {fileID: 118774}
 --- !u!114 &11418774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,6 +203,7 @@ MonoBehaviour:
   DamageOnTouch: 10
   DamageOnStay: 1
   VerticalForce: 100
+  HorizontalForce: 0
 --- !u!114 &11472376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,6 +215,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50b6361cd46a0b418d5e3587869a432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11484018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2cb6baff49d384b8f1b767cd437b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationOffset: 90
+  MinSpeedForRotation: 5
 --- !u!212 &21200876
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -230,7 +247,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 1024582385
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a1db337d64a67494fbcfe41fa023c0e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21230838

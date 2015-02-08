@@ -7,13 +7,12 @@ public class Cannon : MonoBehaviour {
 	public float Power = 20f;
 
 	private float LastShot = 0f;
-	private GameObject bullet;
-	private GameObject aim;
+	public GameObject bullet;
+	public GameObject aim;
 
 	// Use this for initialization
 	void Start () {
-		bullet = transform.FindChild("Bullet").gameObject;
-		aim = transform.FindChild("Aim").gameObject;
+
 	}
 	
 	// Update is called once per frame
