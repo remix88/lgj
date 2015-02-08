@@ -3943,6 +3943,10 @@ Prefab:
       propertyPath: TotalHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8202120, guid: 32d27bf3aba55c042b716b21e1f7c723, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32d27bf3aba55c042b716b21e1f7c723, type: 2}
   m_RootGameObject: {fileID: 106884804}
@@ -4569,7 +4573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageOnTouch: 10
   DamageOnStay: 1
-  VerticalForce: 100
+  VerticalForce: 1000
   HorizontalForce: 0
 --- !u!1 &972049409
 GameObject:
@@ -7726,7 +7730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageOnTouch: 10
   DamageOnStay: 1
-  VerticalForce: 100
+  VerticalForce: 1000
   HorizontalForce: 0
 --- !u!58 &1633977051
 CircleCollider2D:
