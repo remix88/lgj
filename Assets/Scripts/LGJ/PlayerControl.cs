@@ -37,6 +37,7 @@ public class PlayerControl : MonoBehaviour
 
 	private bool disabled = false;
 	private float disabledUntil = 0f;
+	private bool dead = false;
 
 	private bool idle = true;
 	private bool scared = false;
@@ -67,7 +68,7 @@ public class PlayerControl : MonoBehaviour
 
 		ProcessInput();
 
-		if(Time.time > disabledUntil) {
+		if(Time.time > disabledUntil && !dead) {
 			disabled = false;
 		}
 
@@ -121,7 +122,7 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void FixedUpdate ()
-	{		
+	{
 		// Add force, but less force when the player is nearing the maximum speed
 		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
 		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
@@ -219,12 +220,20 @@ public class PlayerControl : MonoBehaviour
 			return i;
 	}
 
-	void Disable(float seconds) {
+	public void Die() {
+		disabled = true;
+		dead = true;
+	}
+
+	public void Disable(float seconds) {
 		disabled = true;
 		disabledUntil = Time.time + seconds;
 	}
 
 	void DangerImpact(Danger danger) {
+		if(dead) {
+			return;
+		}
 		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
 		if(danger.HorizontalForce != 0) {
 			Disable(0.3f);
@@ -232,10 +241,16 @@ public class PlayerControl : MonoBehaviour
 	}
 	
 	void DangerImpactContinuous(Danger danger) {
+		if(dead) {
+			return;
+		}
 		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce * Time.deltaTime * 10, danger.VerticalForce * Time.deltaTime * 10));
 	}
 	
 	void DangerEffect(Danger danger) {
+		if(dead) {
+			return;
+		}
 		health.Hurt(danger.DamageOnTouch);
 		hurt = true;
 		if(rigidbody2D.velocity.y < 0.5f) {
@@ -245,6 +260,9 @@ public class PlayerControl : MonoBehaviour
 	}
 	
 	void DangerEffectContinuous(Danger danger) {
+		if(dead) {
+			return;
+		}
 		float damage = Time.deltaTime * danger.DamageOnStay;
 		health.Hurt(damage);
 	}

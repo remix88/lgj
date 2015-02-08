@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum ShowHealthBar {
 	Always, WhenDamaged, Never
+}
+
+public interface HealthListener {
+	void OnHealthChange(Mortal health, float oldValue);
 }
 
 public class Mortal : MonoBehaviour {
@@ -16,6 +21,8 @@ public class Mortal : MonoBehaviour {
 	private float lastDamage = 0f;
 
 	private GameObject healthBarContent;
+
+	private List<HealthListener> listeners = new List<HealthListener>();
 
 	// Use this for initialization
 	void Start () {
@@ -41,11 +48,24 @@ public class Mortal : MonoBehaviour {
 	}
 
 	public void Hurt(float damage) {
+		float oldValue = CurrentHealth;
 		CurrentHealth -= damage;
 		lastDamage = Time.time;
 		if(HealthBar != null) {
-			HealthBar.SetActive(true);
+			if(ShowHealthBar == ShowHealthBar.WhenDamaged) {
+				HealthBar.SetActive(true);
+			}
 			healthBarContent.transform.localScale = new Vector2(CurrentHealth / TotalHealth * fullHealthScale, 1);
+			if(healthBarContent.transform.localScale.x < -1) {
+				healthBarContent.transform.localScale = new Vector2(0, 1);
+			}
 		}
+		foreach(HealthListener listener in listeners) {
+			listener.OnHealthChange(this, oldValue);
+		}
+	}
+
+	public void AddHealthListener(HealthListener listener) {
+		listeners.Add(listener);
 	}
 }
