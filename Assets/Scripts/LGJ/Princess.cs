@@ -24,7 +24,7 @@ public class Princess : MonoBehaviour
 	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
 	private Animator anim;					// Reference to the princess's animator component.
 
-	public PlayerControl Player;
+	public PlayerControl Knight;
 
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private Transform body;
@@ -41,6 +41,12 @@ public class Princess : MonoBehaviour
 		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
 		InvokeRepeating("Taunt", 1, 5);
 		InvokeRepeating("MaybeJump", 1, 5);
+
+		if(Knight == null) {
+			Debug.LogError("Knight was not specified in Princess Inspector");
+		} else {
+			rope.connectedBody = Knight.gameObject.rigidbody2D;
+		}
 	}
 
 	void Awake()
@@ -86,17 +92,17 @@ public class Princess : MonoBehaviour
 	void FixedUpdate ()
 	{		
 		// If the princess is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
-		float h = Mathf.Sign(Player.PrincessFocus.transform.position.x - transform.position.x);
+		float h = Mathf.Sign(Knight.PrincessFocus.transform.position.x - transform.position.x);
 		// ... add a force to the princess.
 		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
 		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
 
 		// If the input is moving the princess right and the princess is facing left...
-		if(facingRight && transform.position.x > Player.transform.position.x)
+		if(facingRight && transform.position.x > Knight.transform.position.x)
 			// ... flip the princess.
 			Flip();
 		// Otherwise if the input is moving the princess left and the princess is facing right...
-		else if(!facingRight && transform.position.x < Player.transform.position.x)
+		else if(!facingRight && transform.position.x < Knight.transform.position.x)
 			// ... flip the princess.
 			Flip();
 		
@@ -117,17 +123,17 @@ public class Princess : MonoBehaviour
 		}
 
 		// Change rope side to keep moving
-		if(transform.position.x > Player.transform.position.x + 2) {
-			Player.SetRopeSide(-1);
-		} else if(transform.position.x < Player.transform.position.x - 2) {
-			Player.SetRopeSide(1);
+		if(transform.position.x > Knight.transform.position.x + 2) {
+			Knight.SetRopeSide(-1);
+		} else if(transform.position.x < Knight.transform.position.x - 2) {
+			Knight.SetRopeSide(1);
 		}
 
 		// Use lasso when falling
-		if(!lasso && transform.position.y < Player.transform.position.y - 2f && rigidbody2D.velocity.y < -0.5) {
+		if(!lasso && transform.position.y < Knight.transform.position.y - 2f && rigidbody2D.velocity.y < -0.5) {
 			ThrowLasso();
 		}
-		if(lasso && transform.position.y > Player.transform.position.y - 2f) {
+		if(lasso && transform.position.y > Knight.transform.position.y - 2f) {
 			StopLasso();
 		}
 	}
@@ -140,7 +146,7 @@ public class Princess : MonoBehaviour
 	void DrawLasso() {
 		line.SetVertexCount(2);
 		line.SetPosition(0, ropeAttach.transform.position);
-		line.SetPosition(1, Player.transform.position);
+		line.SetPosition(1, Knight.transform.position);
 	}
 	
 	void StopLasso() {

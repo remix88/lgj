@@ -225,11 +225,11 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		if(collider.transform.tag == "Danger") {
-			Danger danger = collider.gameObject.GetComponent<Danger>();
-			Mortal mortal = GetComponent<Mortal>();
-			if(mortal != null) {
-				mortal.Hurt(danger.DamageOnTouch);
+		if(!hurt) {
+			if(collider.transform.tag == "Danger") {
+				Danger danger = collider.gameObject.GetComponent<Danger>();
+				health.Hurt(danger.DamageOnTouch);
+				hurt = true;
 			}
 		}
 	}
@@ -239,6 +239,20 @@ public class PlayerControl : MonoBehaviour
 			Danger danger = collider.gameObject.GetComponent<Danger>();
 			float damage = Time.deltaTime * danger.DamagePerSecond;
 			health.Hurt(damage);
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		if(!hurt) {
+			if(collision.transform.tag == "Danger") {
+				Danger danger = collision.gameObject.GetComponent<Danger>();
+				health.Hurt(danger.DamageOnTouch);
+				hurt = true;
+				if(rigidbody2D.velocity.y < 0.5f) {
+					Disable(0.3f);
+					rigidbody2D.AddRelativeForce(-100 * Vector2.right);
+				}
+			}
 		}
 	}
 
