@@ -80,7 +80,9 @@ public class PlayerControl : MonoBehaviour
 		hurt = health.GetLastDamage() > 0 && Time.time - health.GetLastDamage() < 0.5f;
 		
 		// Animation states
-		if(hurt) {
+		if(dead) {
+			anim.SetTrigger("dead");
+		} else if(hurt) {
 			anim.SetTrigger("idlescared");
 		} else if(plunging) {
 			anim.SetTrigger("plunge");
@@ -123,10 +125,13 @@ public class PlayerControl : MonoBehaviour
 
 	void FixedUpdate ()
 	{
+		if(disabled) {
+			return;
+		}
 		// Add force, but less force when the player is nearing the maximum speed
 		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
 		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
-		
+
 		// If the input is moving the player right and the player is facing left...
 		if(h > 0 && !facingRight)
 			// ... flip the player.
@@ -222,6 +227,7 @@ public class PlayerControl : MonoBehaviour
 	public void Die() {
 		Disable (true);
 		dead = true;
+		rigidbody2D.isKinematic = true;
 	}
 
 	public void Disable(bool disable) {

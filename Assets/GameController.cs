@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour, HealthListener {
 	public void StartLevel() {
 		if(ShowIntro) {
 			ComicController.StartComic();
+		} else {
+			GetReady();
 		}
 		
 		Knight.Disable(true);
@@ -76,6 +78,7 @@ public class GameController : MonoBehaviour, HealthListener {
 		CameraRig.GetComponent<CameraScroll>().StartScrolling();
 		Knight.Disable(false);
 		Princess.Disable(false);
+		getReady = false;
 	}
 
 	public void GetReady() {

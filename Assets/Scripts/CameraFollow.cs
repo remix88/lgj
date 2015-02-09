@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour 
 {
+	public GameObject Player;
 	public float xMargin = 1f;		// Distance in the x axis the player can move before the camera follows.
 	public float yMargin = 1f;		// Distance in the y axis the player can move before the camera follows.
 	public float xSmooth = 8f;		// How smoothly the camera catches up with it's target movement in the x axis.
@@ -11,27 +12,25 @@ public class CameraFollow : MonoBehaviour
 	public Vector2 minXAndY;		// The minimum x and y coordinates the camera can have.
 
 
-	private Transform player;		// Reference to the player's transform.
-
-
 	void Awake ()
 	{
-		// Setting up the reference.
-		player = GameObject.FindGameObjectWithTag("Player").transform;
+		if(Player == null) {
+			Debug.LogError("No player set to follow.");
+		}
 	}
 
 
 	bool CheckXMargin()
 	{
 		// Returns true if the distance between the camera and the player in the x axis is greater than the x margin.
-		return Mathf.Abs(transform.position.x - player.position.x) > xMargin;
+		return Mathf.Abs(transform.position.x - Player.transform.position.x) > xMargin;
 	}
 
 
 	bool CheckYMargin()
 	{
-		// Returns true if the distance between the camera and the player in the y axis is greater than the y margin.
-		return Mathf.Abs(transform.position.y - player.position.y) > yMargin;
+		// Returns true if the distance between the camera and the Player in the y axis is greater than the y margin.
+		return Mathf.Abs(transform.position.y - Player.transform.position.y) > yMargin;
 	}
 
 
@@ -47,15 +46,15 @@ public class CameraFollow : MonoBehaviour
 		float targetX = transform.position.x;
 		float targetY = transform.position.y;
 
-		// If the player has moved beyond the x margin...
+		// If the Player has moved beyond the x margin...
 		if(CheckXMargin())
-			// ... the target x coordinate should be a Lerp between the camera's current x position and the player's current x position.
-			targetX = Mathf.Lerp(transform.position.x, player.position.x, xSmooth * Time.deltaTime);
+			// ... the target x coordinate should be a Lerp between the camera's current x position and the Player's current x position.
+			targetX = Mathf.Lerp(transform.position.x, Player.transform.position.x, xSmooth * Time.deltaTime);
 
-		// If the player has moved beyond the y margin...
+		// If the Player has moved beyond the y margin...
 		if(CheckYMargin())
-			// ... the target y coordinate should be a Lerp between the camera's current y position and the player's current y position.
-			targetY = Mathf.Lerp(transform.position.y, player.position.y, ySmooth * Time.deltaTime);
+			// ... the target y coordinate should be a Lerp between the camera's current y position and the Player's current y position.
+			targetY = Mathf.Lerp(transform.position.y, Player.transform.position.y, ySmooth * Time.deltaTime);
 
 		// The target x and y coordinates should not be larger than the maximum or smaller than the minimum.
 		targetX = Mathf.Clamp(targetX, minXAndY.x, maxXAndY.x);
