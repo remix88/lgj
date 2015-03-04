@@ -12,7 +12,7 @@ GameObject:
   - 212: {fileID: 21214356}
   - 60: {fileID: 6064140}
   m_Layer: 13
-  m_Name: Spikes_of_dooooom
+  m_Name: Spikes_of_dooooom (markedForDelete)
   m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageOnTouch: 10
-  DamagePerSecond: 1
+  DamageOnStay: 1
+  VerticalForce: 1000
+  HorizontalForce: 0
 --- !u!212 &21214356
 SpriteRenderer:
   m_ObjectHideFlags: 1
