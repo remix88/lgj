@@ -12,10 +12,13 @@ public class Princess : MonoBehaviour
 	public float moveForce = 365f;			// Amount of force added to move the princess left and right.
 	public float maxSpeed = 5f;				// The fastest the princess can travel in the x axis.
 	public float LassoDistance = 10f;		// The maximum distance at which the Princess can use the lasso.
+	public float LassoDuration = 2f;
+	public float LassoCooldown = 5f;
 	public AudioClip[] jumpClips;			// Array of clips for when the princess jumps.
 	public float jumpForce = 1000f;			// Amount of force added when the princess jumps.
 	public AudioClip[] taunts;				// Array of clips for when the princess taunts.
 	public float tauntProbability = 50f;	// Chance of a taunt happening.
+	public GameObject GetBackPoint;
 
 	private bool grounded = false;			// Whether or not the player is grounded.
 
@@ -30,14 +33,17 @@ public class Princess : MonoBehaviour
 	private Transform body;
 	private LineRenderer line;
 	private GameObject ropeAttach;
+	private GameObject getBackRope;
 	private SpringJoint2D rope;
 	private Mortal health;
+	private BoxCollider2D collider;
 
 	private int state = 0;
 	private bool hurt = false;
 	private bool lasso = false;
 	private bool disabled = false;
 	private float disabledUntil = 0f;
+	private float lastLasso = 0;
 
 	void Start() {
 		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
@@ -61,8 +67,10 @@ public class Princess : MonoBehaviour
 		anim = body.gameObject.GetComponent<Animator>();
 		line = GetComponent<LineRenderer>();
 		ropeAttach = transform.Find("RopeAttach").gameObject;
+		getBackRope = transform.Find("GetBackRope").gameObject;
 		rope = GetComponent<SpringJoint2D>();
 		health = GetComponent<Mortal>();
+		collider = GetComponent<BoxCollider2D>();
 	}
 	
 	
@@ -109,6 +117,7 @@ public class Princess : MonoBehaviour
 		if(Knight == null || disabled) {
 			return;
 		}
+
 		// If the princess is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
 		float h = Mathf.Sign(Knight.PrincessFocus.transform.position.x - transform.position.x);
 		// ... add a force to the princess.
@@ -117,6 +126,51 @@ public class Princess : MonoBehaviour
 
 		CheckDirection();
 		
+		JumpBehaviour();
+
+		RopeBehaviour();
+
+		GetBackBehaviour();
+	}
+
+	private void GetBackBehaviour() {
+		if(GetBackPoint.transform.position.x < transform.position.x) {
+			getBackRope.SetActive(true);
+			collider.enabled = false;
+		} else {
+			getBackRope.SetActive(false);
+			collider.enabled = true;
+		}
+	}
+
+	private void RopeBehaviour() {
+		// Change rope side to keep moving
+		if(transform.position.x > Knight.transform.position.x + 2) {
+			Knight.SetRopeSide(-1);
+		} else if(transform.position.x < Knight.transform.position.x - 2) {
+			Knight.SetRopeSide(1);
+		}
+
+		bool lassoAvailable = Time.time > lastLasso + LassoDuration + LassoCooldown;
+		bool lassoEnd = lasso & Time.time > lastLasso + LassoDuration;
+
+		Debug.Log (lastLasso + ", " + lassoAvailable + ", " + lassoEnd);
+
+		// Use lasso when falling
+		if(!lasso 
+		   && lassoAvailable
+		   && transform.position.y < Knight.transform.position.y - 2f 
+		   && GetComponent<Rigidbody2D>().velocity.y < -0.5
+		   && Vector2.Distance(transform.position, Knight.transform.position) < LassoDistance) {
+			ThrowLasso();
+		}
+		// Stop lasso
+		if(lasso && (lassoEnd || transform.position.y > Knight.transform.position.y - 2f)) {
+			StopLasso();
+		}
+	}
+
+	private void JumpBehaviour() {
 		// If the princess should jump...
 		if(jump && grounded)
 		{			
@@ -131,24 +185,6 @@ public class Princess : MonoBehaviour
 			
 			// Make sure the princess can't jump again until the jump conditions from Update are satisfied.
 			jump = false;
-		}
-
-		// Change rope side to keep moving
-		if(transform.position.x > Knight.transform.position.x + 2) {
-			Knight.SetRopeSide(-1);
-		} else if(transform.position.x < Knight.transform.position.x - 2) {
-			Knight.SetRopeSide(1);
-		}
-
-		// Use lasso when falling
-		if(!lasso 
-		   && transform.position.y < Knight.transform.position.y - 2f 
-		   && GetComponent<Rigidbody2D>().velocity.y < -0.5
-		   && Vector2.Distance(transform.position, Knight.transform.position) < LassoDistance) {
-			ThrowLasso();
-		}
-		if(lasso && transform.position.y > Knight.transform.position.y - 2f) {
-			StopLasso();
 		}
 	}
 
@@ -165,6 +201,7 @@ public class Princess : MonoBehaviour
 	void ThrowLasso() {
 		lasso = true;
 		rope.enabled = true;
+		lastLasso = Time.time;
 	}
 	
 	void DrawLasso() {
@@ -190,7 +227,7 @@ public class Princess : MonoBehaviour
 		body.localScale = theScale;
 	}
 
-	public void MaybeJump() {
+	private void MaybeJump() {
 		if(grounded && Random.Range(0f, 100f) < JumpChance) {
 			Jump ();
 		}
