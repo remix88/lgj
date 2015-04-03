@@ -29,7 +29,6 @@ GameObject:
   - 4: {fileID: 465566}
   - 61: {fileID: 6165566}
   - 114: {fileID: 11465566}
-  - 114: {fileID: 11485454}
   m_Layer: 15
   m_Name: CameraRig
   m_TagString: Untagged
@@ -103,8 +102,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
   m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 21.1268158, y: 17.0032043}
+  serializedVersion: 2
   m_Size: {x: 3.12594604, y: 579.250427}
-  m_Center: {x: 21.1268158, y: 17.0032043}
 --- !u!81 &8165566
 AudioListener:
   m_ObjectHideFlags: 1
@@ -125,31 +126,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165566}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43c977cac306b304ab56c0423ebe5bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 7
-  Scroll: 1
---- !u!114 &11485454
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a1ff7ff4ce484f1aad8887efed74b11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  xMargin: 1
-  yMargin: 1
-  xSmooth: 8
-  ySmooth: 8
-  maxXAndY: {x: 0, y: 0}
-  minXAndY: {x: 0, y: 0}
+  Speed: 1
+  Scroll: 0
 --- !u!124 &12465566
 Behaviour:
   m_ObjectHideFlags: 1
@@ -168,4 +151,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 165566}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

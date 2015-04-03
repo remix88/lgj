@@ -47,7 +47,7 @@ public class Princess : MonoBehaviour
 		if(Knight == null) {
 			Debug.LogError("Knight was not specified in Princess Inspector");
 		} else {
-			rope.connectedBody = Knight.gameObject.rigidbody2D;
+			rope.connectedBody = Knight.gameObject.GetComponent<Rigidbody2D>();
 			rope.enabled = false;
 		}
 
@@ -112,8 +112,8 @@ public class Princess : MonoBehaviour
 		// If the princess is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
 		float h = Mathf.Sign(Knight.PrincessFocus.transform.position.x - transform.position.x);
 		// ... add a force to the princess.
-		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
-		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
+		float strength = 1- (Mathf.Sign(h) * GetComponent<Rigidbody2D>().velocity.x) / maxSpeed;
+		GetComponent<Rigidbody2D>().AddForce(Vector2.right * h * moveForce * strength);
 
 		CheckDirection();
 		
@@ -127,7 +127,7 @@ public class Princess : MonoBehaviour
 			}
 			
 			// Add a vertical force to the princess.
-			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
 			
 			// Make sure the princess can't jump again until the jump conditions from Update are satisfied.
 			jump = false;
@@ -143,7 +143,7 @@ public class Princess : MonoBehaviour
 		// Use lasso when falling
 		if(!lasso 
 		   && transform.position.y < Knight.transform.position.y - 2f 
-		   && rigidbody2D.velocity.y < -0.5
+		   && GetComponent<Rigidbody2D>().velocity.y < -0.5
 		   && Vector2.Distance(transform.position, Knight.transform.position) < LassoDistance) {
 			ThrowLasso();
 		}
@@ -210,14 +210,14 @@ public class Princess : MonoBehaviour
 		if(tauntChance > tauntProbability)
 		{			
 			// If there is no clip currently playing.
-			if(!audio.isPlaying)
+			if(!GetComponent<AudioSource>().isPlaying)
 			{
 				// Choose a random, but different taunt.
 				tauntIndex = TauntRandom();
 				
 				// Play the new taunt.
-				audio.clip = taunts[tauntIndex];
-				audio.Play();
+				GetComponent<AudioSource>().clip = taunts[tauntIndex];
+				GetComponent<AudioSource>().Play();
 			}
 		}
 	}
@@ -238,22 +238,22 @@ public class Princess : MonoBehaviour
 	}
 
 	void DangerImpact(Danger danger) {
-		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
+		GetComponent<Rigidbody2D>().AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
 		if(danger.HorizontalForce != 0) {
 			Disable(0.3f);
 		}
 	}
 	
 	void DangerImpactContinuous(Danger danger) {
-		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce * Time.deltaTime * 10, danger.VerticalForce * Time.deltaTime * 10));
+		GetComponent<Rigidbody2D>().AddForce(new Vector2(danger.HorizontalForce * Time.deltaTime * 10, danger.VerticalForce * Time.deltaTime * 10));
 	}
 	
 	void DangerEffect(Danger danger) {
 		health.Hurt(danger.DamageOnTouch);
 		hurt = true;
-		if(rigidbody2D.velocity.y < 0.5f) {
+		if(GetComponent<Rigidbody2D>().velocity.y < 0.5f) {
 			Disable(0.3f);
-			rigidbody2D.AddRelativeForce(-100 * Vector2.right);
+			GetComponent<Rigidbody2D>().AddRelativeForce(-100 * Vector2.right);
 		}
 	}
 	

@@ -13,8 +13,8 @@ public class Projectile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 diff = rigidbody2D.velocity.normalized;
-		float mag = rigidbody2D.velocity.magnitude;
+		Vector3 diff = GetComponent<Rigidbody2D>().velocity.normalized;
+		float mag = GetComponent<Rigidbody2D>().velocity.magnitude;
 
 		if(mag > MinSpeedForRotation) {
 			float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;

@@ -129,8 +129,8 @@ public class PlayerControl : MonoBehaviour
 			return;
 		}
 		// Add force, but less force when the player is nearing the maximum speed
-		float strength = 1- (Mathf.Sign(h) * rigidbody2D.velocity.x) / maxSpeed;
-		rigidbody2D.AddForce(Vector2.right * h * moveForce * strength);
+		float strength = 1- (Mathf.Sign(h) * GetComponent<Rigidbody2D>().velocity.x) / maxSpeed;
+		GetComponent<Rigidbody2D>().AddForce(Vector2.right * h * moveForce * strength);
 
 		// If the input is moving the player right and the player is facing left...
 		if(h > 0 && !facingRight)
@@ -151,7 +151,7 @@ public class PlayerControl : MonoBehaviour
 			}
 
 			// Add a vertical force to the player.
-			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
 
 			// Make sure the player can't jump again until the jump conditions from Update are satisfied.
 			jump = false;
@@ -163,7 +163,7 @@ public class PlayerControl : MonoBehaviour
 		}
 
 		if(plunge) {
-			rigidbody2D.velocity = new Vector3(0, -8f);
+			GetComponent<Rigidbody2D>().velocity = new Vector3(0, -8f);
 			plunge = false;
 			plunging = true;
 		}
@@ -197,14 +197,14 @@ public class PlayerControl : MonoBehaviour
 			yield return new WaitForSeconds(tauntDelay);
 
 			// If there is no clip currently playing.
-			if(!audio.isPlaying)
+			if(!GetComponent<AudioSource>().isPlaying)
 			{
 				// Choose a random, but different taunt.
 				tauntIndex = TauntRandom();
 
 				// Play the new taunt.
-				audio.clip = taunts[tauntIndex];
-				audio.Play();
+				GetComponent<AudioSource>().clip = taunts[tauntIndex];
+				GetComponent<AudioSource>().Play();
 			}
 		}
 	}
@@ -227,7 +227,7 @@ public class PlayerControl : MonoBehaviour
 	public void Die() {
 		Disable (true);
 		dead = true;
-		rigidbody2D.isKinematic = true;
+		GetComponent<Rigidbody2D>().isKinematic = true;
 	}
 
 	public void Disable(bool disable) {
@@ -244,7 +244,7 @@ public class PlayerControl : MonoBehaviour
 		if(dead) {
 			return;
 		}
-		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
+		GetComponent<Rigidbody2D>().AddForce(new Vector2(danger.HorizontalForce, danger.VerticalForce));
 		if(danger.HorizontalForce != 0) {
 			Disable(0.3f);
 		}
@@ -254,7 +254,7 @@ public class PlayerControl : MonoBehaviour
 		if(dead) {
 			return;
 		}
-		rigidbody2D.AddForce(new Vector2(danger.HorizontalForce * Time.deltaTime * 10, danger.VerticalForce * Time.deltaTime * 10));
+		GetComponent<Rigidbody2D>().AddForce(new Vector2(danger.HorizontalForce * Time.deltaTime * 10, danger.VerticalForce * Time.deltaTime * 10));
 	}
 	
 	void DangerEffect(Danger danger) {
@@ -263,9 +263,9 @@ public class PlayerControl : MonoBehaviour
 		}
 		health.Hurt(danger.DamageOnTouch);
 		hurt = true;
-		if(rigidbody2D.velocity.y < 0.5f) {
+		if(GetComponent<Rigidbody2D>().velocity.y < 0.5f) {
 			Disable(0.3f);
-			rigidbody2D.AddRelativeForce(-100 * Vector2.right);
+			GetComponent<Rigidbody2D>().AddRelativeForce(-100 * Vector2.right);
 		}
 	}
 	

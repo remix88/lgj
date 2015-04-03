@@ -24,18 +24,18 @@ public class Cannon : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		if(rigidbody2D != null) {
-			rigidbody2D.AddForce(rigidbody2D.velocity * -100);
+		if(GetComponent<Rigidbody2D>() != null) {
+			GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity * -100);
 		}
 	}
 
 	public void Shoot() {
 		GameObject shot = (GameObject) GameObject.Instantiate(bullet);
 		shot.transform.position = bullet.transform.position;
-		Physics2D.IgnoreCollision(shot.collider2D, collider2D);
+		Physics2D.IgnoreCollision(shot.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
 		Vector2 dir = (aim.transform.position - bullet.transform.position).normalized;
 		shot.SetActive(true);
-		shot.rigidbody2D.velocity = dir * Power;
+		shot.GetComponent<Rigidbody2D>().velocity = dir * Power;
 	}
 }
