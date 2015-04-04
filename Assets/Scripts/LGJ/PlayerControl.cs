@@ -322,4 +322,11 @@ public class PlayerControl : MonoBehaviour
 			health.Hurt(Time.deltaTime * princess.DamagePerSecond);
 		}
 	}
+
+	void OnBecameInvisible() {
+		Debug.Log ("invisible");
+		if(gameObject.activeSelf) {
+			health.Hurt(health.CurrentHealth);
+		}
+	}
 }

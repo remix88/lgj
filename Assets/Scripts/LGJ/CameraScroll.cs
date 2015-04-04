@@ -5,6 +5,7 @@ public class CameraScroll : MonoBehaviour {
 
 	public float Speed = 1f;
 	public bool Scroll = false;
+	public float XStop = -1000f;
 
 	BoxCollider2D boxCollider;
 
@@ -15,7 +16,7 @@ public class CameraScroll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Scroll) {
+		if(Scroll && transform.position.x > XStop) {
 			Vector3 delta = Vector3.right * -1 * Speed * Time.deltaTime;
 			transform.position += delta;
 		}

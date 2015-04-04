@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.9800034, y: -.699999988, z: -10}
+  m_LocalPosition: {x: -191.460007, y: -.699999988, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465564}
@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.7600002, y: 9.17000008, z: 0}
+  m_LocalPosition: {x: 21.7900009, y: 9.17000008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 465566}
@@ -148,9 +148,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 21.1268158, y: 17.0032043}
+  m_Offset: {x: -16.9772186, y: 17.0032043}
   serializedVersion: 2
-  m_Size: {x: 3.12594604, y: 579.250427}
+  m_Size: {x: 2.78607941, y: 579.250427}
 --- !u!81 &8165566
 AudioListener:
   m_ObjectHideFlags: 1
@@ -189,13 +189,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165566}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43c977cac306b304ab56c0423ebe5bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 4
-  Scroll: 1
+  Scroll: 0
+  XStop: -1000
 --- !u!124 &12465566
 Behaviour:
   m_ObjectHideFlags: 1
