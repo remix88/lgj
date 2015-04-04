@@ -2,14 +2,16 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameController : MonoBehaviour, HealthListener {
+public class GameController : MonoBehaviour, HealthListener, AreaListener {
 
 	public PlayerControl Knight;
 	public Princess Princess;
 	public GameObject CameraRig;
 	public GameObject RetryCanvas;
+	public GameObject WinCanvas;
 	public ComicController ComicController;
 	public bool ShowIntro = true;
+	public DetectionArea FinishArea;
 
 	private Mortal knightHealth;
 	private Mortal princessHealth;
@@ -30,6 +32,8 @@ public class GameController : MonoBehaviour, HealthListener {
 		princessHealth.AddHealthListener(this);
 
 		startPosition = CameraRig.transform.position.x;
+	
+		FinishArea.AddAreaListener(this);
 
 		StartLevel();
 	}
@@ -106,5 +110,24 @@ public class GameController : MonoBehaviour, HealthListener {
 	void StartComic() {
 		ComicController.StartComic();
 		ShowIntro = false;
+	}
+
+	public void Win() {
+		GameObject scoreText = WinCanvas.transform.FindChild("ScoreVar").gameObject;
+		scoreText.GetComponent<Text>().text = score+"";
+		
+		WinCanvas.SetActive(true);
+		Knight.Disable(true);
+		Princess.Angry(true);
+	}
+
+	public void OnAreaEnter(DetectionArea area, Collider2D collider) {
+		if(area == FinishArea && collider.gameObject == Knight.gameObject) {
+			Win ();
+		}
+	}
+
+	public void OnAreaExit(DetectionArea area, Collider2D collider) {
+
 	}
 }

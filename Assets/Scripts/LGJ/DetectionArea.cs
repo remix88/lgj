@@ -21,11 +21,11 @@ public class DetectionArea : MonoBehaviour {
 	
 	}
 
-	public void AddBinListener(AreaListener listener) {
+	public void AddAreaListener(AreaListener listener) {
 		areaListeners.Add(listener);
 	}
 
-	void OnTrigger2DEnter(Collider2D collider) {
+	void OnTriggerEnter2D(Collider2D collider) {
 		foreach(AreaListener listener in areaListeners) {
 			listener.OnAreaEnter(this, collider);
 		}

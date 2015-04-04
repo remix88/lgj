@@ -44,6 +44,7 @@ public class Princess : MonoBehaviour
 	private bool disabled = false;
 	private float disabledUntil = 0f;
 	private float lastLasso = 0;
+	private bool angry = false;
 
 	void Start() {
 		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
@@ -92,7 +93,7 @@ public class Princess : MonoBehaviour
 		}
 		anim.SetInteger("state", state);
 
-		hurt = health.GetLastDamage() > 0 && Time.time - health.GetLastDamage() < 0.5f;
+		hurt = angry || health.GetLastDamage() > 0 && Time.time - health.GetLastDamage() < 0.5f;
 		anim.SetBool("hurt", hurt);
 		anim.SetBool("jump", !grounded);
 
@@ -184,6 +185,10 @@ public class Princess : MonoBehaviour
 			// Make sure the princess can't jump again until the jump conditions from Update are satisfied.
 			jump = false;
 		}
+	}
+
+	public void Angry(bool angry) {
+		this.angry = angry;
 	}
 
 	public void Disable(bool disable) {
