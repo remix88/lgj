@@ -22,4 +22,11 @@ public class Projectile : MonoBehaviour {
 			transform.rotation = euler;
 		}
 	}
+
+	void OnCollisionEnter2D (Collision2D collision) {
+		Debug.Log (collision);
+		if(collision.transform.name.ToLower().Contains("lavah_lavah")) {
+			Destroy (gameObject);
+		}
+	}
 }
