@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CleanInvisible : MonoBehaviour {
 
-	public static float DistanceFromPlayer = 30f;
+	public float DistanceFromPlayer = 30f;
 
 	private GameObject Knight;
 
