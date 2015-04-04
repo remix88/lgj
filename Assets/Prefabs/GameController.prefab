@@ -43,8 +43,10 @@ MonoBehaviour:
   Princess: {fileID: 0}
   CameraRig: {fileID: 0}
   RetryCanvas: {fileID: 0}
+  WinCanvas: {fileID: 0}
   ComicController: {fileID: 0}
-  ShowIntro: 1
+  ShowIntro: 0
+  FinishArea: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
