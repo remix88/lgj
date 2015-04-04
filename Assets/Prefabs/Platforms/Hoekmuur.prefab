@@ -10,6 +10,8 @@ GameObject:
   - 4: {fileID: 408376}
   - 212: {fileID: 21208376}
   - 60: {fileID: 6008376}
+  - 61: {fileID: 6137234}
+  - 61: {fileID: 6173474}
   m_Layer: 0
   m_Name: Hoekmuur
   m_TagString: Untagged
@@ -24,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110.459999, y: -6.96000004, z: 0}
+  m_LocalPosition: {x: 110.459999, y: -6.42999983, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -38,7 +40,9 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Poly:
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
     m_Paths:
     - - {x: 5.61152315, y: -1.74243152}
       - {x: 5.61152315, y: -.598681629}
@@ -51,21 +55,22 @@ PolygonCollider2D:
       - {x: 5.96894503, y: 2.70747066}
       - {x: 5.70087862, y: 2.68959951}
       - {x: 5.70087862, y: 2.18920875}
-      - {x: 5.4685545, y: 2.22495103}
+      - {x: 5.53410339, y: 2.68381906}
       - {x: 5.41494131, y: 2.70747066}
       - {x: 4.73583937, y: 2.70747066}
       - {x: 4.628613, y: 2.68959951}
-      - {x: 4.21757793, y: 2.13559556}
+      - {x: 4.4596405, y: 2.6750443}
+      - {x: 4.23068237, y: 2.67312622}
       - {x: 4.21757793, y: 2.65385723}
       - {x: 4.19970655, y: 2.70747066}
       - {x: 3.43124986, y: 2.68959951}
       - {x: 3.41337872, y: 2.63598609}
       - {x: 3.37763643, y: 2.24282217}
-      - {x: 1.30458975, y: 2.29643536}
-      - {x: -2.96660137, y: 2.36791968}
-      - {x: -4.93242168, y: 2.40366197}
-      - {x: -5.11113262, y: 2.49301744}
-      - {x: -5.7366209, y: 2.56450176}
+      - {x: 1.30458832, y: 2.24399376}
+      - {x: -2.96659851, y: 2.30236673}
+      - {x: -3.98845673, y: 2.29877806}
+      - {x: -4.90609741, y: 2.26520348}
+      - {x: -5.6420517, y: 2.28145552}
       - {x: -6.16552687, y: 2.26069331}
       - {x: -7.11269474, y: 2.29643536}
       - {x: -7.30927706, y: 2.27856421}
@@ -88,6 +93,32 @@ PolygonCollider2D:
       - {x: 3.8780272, y: 1.54584956}
       - {x: 4.038867, y: 1.47436512}
       - {x: 3.64570284, y: 1.13481438}
+--- !u!61 &6137234
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108376}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 6.12928772, y: -.199424744}
+  serializedVersion: 2
+  m_Size: {x: 1.26173401, y: 5.73658276}
+--- !u!61 &6173474
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108376}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -7.07728577, y: 1.81769085}
+  serializedVersion: 2
+  m_Size: {x: .543099403, y: .973835945}
 --- !u!212 &21208376
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -97,15 +128,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1535931219
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: af8f41743fe5e7948ab3cd387ab01a4c, type: 3}
@@ -121,4 +156,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 108376}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
