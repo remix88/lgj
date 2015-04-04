@@ -1,73 +1,74 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &155242
+--- !u!1 &126002
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 455242}
-  - 212: {fileID: 21255242}
-  - 60: {fileID: 6055242}
+  - 4: {fileID: 405836}
+  - 212: {fileID: 21206618}
+  - 60: {fileID: 6017746}
   m_Layer: 0
-  m_Name: Little_rocks_2
+  m_Name: Little_rocks_dragonshape1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &455242
+--- !u!4 &405836
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155242}
+  m_GameObject: {fileID: 126002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.9500008, y: -4.63000011, z: 0}
+  m_LocalPosition: {x: -14.6400003, y: -11.7799997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!60 &6055242
+--- !u!60 &6017746
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155242}
+  m_GameObject: {fileID: 126002}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5f9c37fb361d64b788498991d3de93d7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: .444999993, y: -.230000004}
-      - {x: .465000004, y: -.200000003}
-      - {x: .465000004, y: -.0399999991}
-      - {x: .425000012, y: .100000001}
-      - {x: .234999999, y: .280000001}
-      - {x: -.00499999989, y: .409999996}
-      - {x: -.0549999997, y: .430000007}
-      - {x: -.324999988, y: .430000007}
-      - {x: -.38499999, y: .419999987}
-      - {x: -.495000005, y: .340000004}
-      - {x: -.564999998, y: .270000011}
-      - {x: -.644999981, y: .100000001}
-      - {x: -.685000002, y: -.0299999993}
-      - {x: -.764999986, y: -.119999997}
-      - {x: -.764999986, y: -.289999992}
+    - - {x: .354999989, y: -.310000002}
+      - {x: .444999993, y: -.230000004}
+      - {x: .465000004, y: -.180000007}
+      - {x: .633095741, y: -1.07846546}
+      - {x: 9.91529942, y: -1.11693096}
+      - {x: 7.42486668, y: .718205452}
+      - {x: 5.81439304, y: 1.47586632}
+      - {x: 4.14961338, y: 2.97870636}
+      - {x: 2.42678928, y: 4.71013212}
+      - {x: .537446022, y: 5.97568941}
+      - {x: -1.33329678, y: 5.8867197}
+      - {x: -3.59924221, y: 4.34391546}
+      - {x: -6.04241848, y: 2.64111137}
+      - {x: -8.54386806, y: .948652267}
+      - {x: -13.8730001, y: -.861400604}
+      - {x: -.676024437, y: -.378969193}
       - {x: -.584999979, y: -.400000006}
-      - {x: -.335000008, y: -.400000006}
+      - {x: -.36500001, y: -.400000006}
+      - {x: -.264999986, y: -.340000004}
       - {x: -.215000004, y: -.370000005}
       - {x: .155000001, y: -.389999986}
-      - {x: .354999989, y: -.310000002}
---- !u!212 &21255242
+--- !u!212 &21206618
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155242}
+  m_GameObject: {fileID: 126002}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -97,5 +98,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 155242}
+  m_RootGameObject: {fileID: 126002}
   m_IsPrefabParent: 1
