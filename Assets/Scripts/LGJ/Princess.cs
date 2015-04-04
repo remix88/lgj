@@ -154,8 +154,6 @@ public class Princess : MonoBehaviour
 		bool lassoAvailable = Time.time > lastLasso + LassoDuration + LassoCooldown;
 		bool lassoEnd = lasso & Time.time > lastLasso + LassoDuration;
 
-		Debug.Log (lastLasso + ", " + lassoAvailable + ", " + lassoEnd);
-
 		// Use lasso when falling
 		if(!lasso 
 		   && lassoAvailable
