@@ -10,6 +10,8 @@ GameObject:
   - 4: {fileID: 456566}
   - 212: {fileID: 21256566}
   - 60: {fileID: 6056566}
+  - 61: {fileID: 6117762}
+  - 61: {fileID: 6179970}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -24,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.3099976, y: -7.61999989, z: 0}
+  m_LocalPosition: {x: -178.889999, y: -6.46999979, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -38,7 +40,9 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Poly:
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
     m_Paths:
     - - {x: .620000005, y: -1.48000002}
       - {x: .769999981, y: -1.44000006}
@@ -102,6 +106,32 @@ PolygonCollider2D:
       - {x: .00999999978, y: -1.55999994}
       - {x: .0799999982, y: -1.52999997}
       - {x: .5, y: -1.5}
+--- !u!61 &6117762
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156566}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: .040512085, y: 1.59405518}
+  serializedVersion: 2
+  m_Size: {x: 1.28485548, y: .410815239}
+--- !u!61 &6179970
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156566}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -1.05369568, y: -.135087013}
+  serializedVersion: 2
+  m_Size: {x: .933619559, y: .518883705}
 --- !u!212 &21256566
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -111,15 +141,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1535931219
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 504d00bd4c0e2ef4ca5c69c2116864d8, type: 3}
@@ -135,4 +169,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 156566}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

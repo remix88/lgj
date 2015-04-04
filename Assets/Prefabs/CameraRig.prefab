@@ -45,7 +45,7 @@ GameObject:
   - 4: {fileID: 465566}
   - 61: {fileID: 6165566}
   - 114: {fileID: 11465566}
-  - 114: {fileID: 11431410}
+  - 114: {fileID: 11462508}
   m_Layer: 15
   m_Name: CameraRig
   m_TagString: Untagged
@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 192.589996, y: -.699999988, z: -10}
+  m_LocalPosition: {x: 68.9800034, y: -.699999988, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465564}
@@ -165,13 +165,13 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165564}
   m_Enabled: 1
---- !u!114 &11431410
+--- !u!114 &11462508
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a1ff7ff4ce484f1aad8887efed74b11, type: 3}
   m_Name: 
@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c977cac306b304ab56c0423ebe5bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  Scroll: 0
+  Speed: 4
+  Scroll: 1
 --- !u!124 &12465566
 Behaviour:
   m_ObjectHideFlags: 1

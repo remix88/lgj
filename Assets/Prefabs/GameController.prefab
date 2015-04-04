@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 188.283463, y: 1.65147829, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,8 +42,9 @@ MonoBehaviour:
   Knight: {fileID: 0}
   Princess: {fileID: 0}
   CameraRig: {fileID: 0}
-  score: 0
-  distance: 0
+  RetryCanvas: {fileID: 0}
+  ComicController: {fileID: 0}
+  ShowIntro: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -55,4 +56,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 170350}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

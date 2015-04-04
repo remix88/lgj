@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21246632}
   - 61: {fileID: 6146632}
   - 61: {fileID: 6149750}
+  - 61: {fileID: 6121466}
   m_Layer: 0
   m_Name: Platform_groot
   m_TagString: Untagged
@@ -25,11 +26,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 201.279999, y: -8.53999996, z: 0}
+  m_LocalPosition: {x: -121.370003, y: -5.21999979, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6121466
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146632}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 3.78177643, y: -.0932426602}
+  serializedVersion: 2
+  m_Size: {x: .484557629, y: 1.03917217}
 --- !u!61 &6146632
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -39,8 +53,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 5f9c37fb361d64b788498991d3de93d7, type: 2}
   m_IsTrigger: 0
-  m_Size: {x: 7.75686455, y: .253871918}
-  m_Center: {x: .113967896, y: .321097136}
+  m_UsedByEffector: 0
+  m_Offset: {x: .113967896, y: -.0474722534}
+  serializedVersion: 2
+  m_Size: {x: 7.75686455, y: .991010666}
 --- !u!61 &6149750
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -50,8 +66,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 1debb068374764196a01e1c69c1f413f, type: 2}
   m_IsTrigger: 0
-  m_Size: {x: 7.96430302, y: 1.03917217}
-  m_Center: {x: .106933594, y: -.0932426453}
+  m_UsedByEffector: 0
+  m_Offset: {x: -3.58958435, y: -.0932426453}
+  serializedVersion: 2
+  m_Size: {x: .441173553, y: 1.03917217}
 --- !u!212 &21246632
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -61,15 +79,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1024582385
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e1dcbdec46194f047b7d06691924619a, type: 3}
@@ -85,4 +107,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 146632}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
