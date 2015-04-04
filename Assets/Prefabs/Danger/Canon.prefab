@@ -85,7 +85,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130838}
-  m_LocalRotation: {x: 0, y: 0, z: -.0652655065, w: .997867942}
+  m_LocalRotation: {x: 0, y: 0, z: -.044630412, w: .999003589}
   m_LocalPosition: {x: 14.4200001, y: -7.07999992, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eea441bcc4955141b7c1837c5d1e5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootingInterval: 1.60000002
-  Power: 38
+  ShootingInterval: .5
+  Power: 34
   bullet: {fileID: 100876}
   aim: {fileID: 118774}
 --- !u!114 &11418774
