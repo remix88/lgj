@@ -23,8 +23,10 @@ public class PlayerControl : MonoBehaviour
 	public float tauntDelay = 1f;			// Delay for when the taunt should happen.
 
 	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
-	private Transform groundCheck;			// A position marking where to check if the player is grounded.
-	private bool grounded = false;			// Whether or not the player is grounded.
+	private Transform groundCheck1;			// A position marking where to check if the player is grounded.
+    private Transform groundCheck2;         // A position marking where to check if the player is grounded.
+    private Transform groundCheck3;         // A position marking where to check if the player is grounded.
+    private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
 
 	private GameObject jumpBeacon;
@@ -52,8 +54,10 @@ public class PlayerControl : MonoBehaviour
 	{
 		// Setting up references.
 		body = transform.Find("Body");
-		groundCheck = transform.Find("groundCheck");
-		anim = body.GetComponent<Animator>();
+		groundCheck1 = transform.Find("groundCheck1");
+        groundCheck2 = transform.Find("groundCheck2");
+        groundCheck3 = transform.Find("groundCheck3");
+        anim = body.GetComponent<Animator>();
 		health = GetComponent<Mortal>();
 
 		jumpBeacon = (GameObject)Resources.Load("Prefabs/JumpBeacon");
@@ -64,9 +68,11 @@ public class PlayerControl : MonoBehaviour
 	{
 		// The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
 		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies") | 1 << LayerMask.NameToLayer("Princess"));
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask); 
+		grounded = Physics2D.Linecast(transform.position, groundCheck1.position, layerMask) ||
+            Physics2D.Linecast(transform.position, groundCheck2.position, layerMask) ||
+            Physics2D.Linecast(transform.position, groundCheck3.position, layerMask);
 
-		ProcessInput();
+        ProcessInput();
 
 		if(disabledUntil >= 0 && Time.time > disabledUntil) {
 			disabled = false;
