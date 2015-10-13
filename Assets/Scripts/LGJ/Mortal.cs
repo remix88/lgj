@@ -27,12 +27,12 @@ public class Mortal : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(HealthBar != null) {
-			fullHealthScale = HealthBar.transform.localScale.x;
 			if(ShowHealthBar != ShowHealthBar.Always) {
 				HealthBar.SetActive(false);
 			}
 			healthBarContent = HealthBar.transform.Find("Content").gameObject;
-		}
+            fullHealthScale = healthBarContent.transform.localScale.x;
+        }
 		CurrentHealth = TotalHealth;
 	}
 	

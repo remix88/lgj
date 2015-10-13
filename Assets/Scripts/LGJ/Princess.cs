@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Princess : MonoBehaviour
+public class Princess : MonoBehaviour, AreaListener
 {
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the princess is currently facing.
@@ -19,6 +20,7 @@ public class Princess : MonoBehaviour
 	public AudioClip[] taunts;				// Array of clips for when the princess taunts.
 	public float tauntProbability = 50f;	// Chance of a taunt happening.
 	public GameObject GetBackPoint;
+    public DetectionArea Cage;              // Cage in which the princess will be locked.
 
 	private bool grounded = false;			// Whether or not the player is grounded.
 
@@ -57,6 +59,11 @@ public class Princess : MonoBehaviour
 			rope.connectedBody = Knight.gameObject.GetComponent<Rigidbody2D>();
 			rope.enabled = false;
 		}
+
+        if(Cage != null)
+        {
+            Cage.AddAreaListener(this);
+        }
 
 		CheckDirection();
 	}
@@ -175,7 +182,7 @@ public class Princess : MonoBehaviour
 		{			
 			// Play a random jump audio clip.
 			if(jumpClips.Length > 0) {
-				int i = Random.Range(0, jumpClips.Length);
+				int i = UnityEngine.Random.Range(0, jumpClips.Length);
 				AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
 			}
 			
@@ -231,7 +238,7 @@ public class Princess : MonoBehaviour
 	}
 
 	private void MaybeJump() {
-		if(grounded && Random.Range(0f, 100f) < JumpChance) {
+		if(grounded && UnityEngine.Random.Range(0f, 100f) < JumpChance) {
 			Jump ();
 		}
 	}
@@ -246,7 +253,7 @@ public class Princess : MonoBehaviour
 			return;
 		}
 		// Check the random chance of taunting.
-		float tauntChance = Random.Range(0f, 100f);
+		float tauntChance = UnityEngine.Random.Range(0f, 100f);
 		if(tauntChance > tauntProbability)
 		{			
 			// If there is no clip currently playing.
@@ -266,7 +273,7 @@ public class Princess : MonoBehaviour
 	int TauntRandom()
 	{
 		// Choose a random index of the taunts array.
-		int i = Random.Range(0, taunts.Length);
+		int i = UnityEngine.Random.Range(0, taunts.Length);
 		
 		// If it's the same as the previous taunt...
 		if(i == tauntIndex)
@@ -343,4 +350,22 @@ public class Princess : MonoBehaviour
 			}
 		}
 	}
+
+    public void OnAreaEnter(DetectionArea area, Collider2D collider)
+    {
+        if(area == Cage)
+        {
+            Angry(true);
+            Disable(true);
+        }
+    }
+
+    public void OnAreaExit(DetectionArea area, Collider2D collider)
+    {
+        if(area == Cage)
+        {
+            Angry(false);
+            Disable(false);
+        }
+    }
 }

@@ -24,7 +24,6 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D collision) {
-		Debug.Log (collision);
 		if(collision.transform.name.ToLower().Contains("lavah_lavah")) {
 			Destroy (gameObject);
 		}
