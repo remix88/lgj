@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[RequireComponent (typeof(AudioSource))]
 public class GameController : MonoBehaviour, HealthListener, AreaListener {
 
 	public PlayerControl Knight;
@@ -9,12 +10,18 @@ public class GameController : MonoBehaviour, HealthListener, AreaListener {
 	public GameObject CameraRig;
 	public GameObject RetryCanvas;
 	public GameObject WinCanvas;
+    public GameCanvas GameCanvas;
 	public ComicController ComicController;
 	public bool ShowIntro = true;
 	public DetectionArea FinishArea;
+    public float DistanceScore = 0.1f;
+    public float KnightHealthScore = 1f;
+    public float PrincessHealthScore = 1f;
 
 	private Mortal knightHealth;
 	private Mortal princessHealth;
+
+    private AudioSource audioSource;
 
 	float startPosition = 0;
 
@@ -22,6 +29,11 @@ public class GameController : MonoBehaviour, HealthListener, AreaListener {
 	float distance = 0;
 
 	bool getReady = false;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -60,12 +72,13 @@ public class GameController : MonoBehaviour, HealthListener, AreaListener {
 	public void OnHealthChange(Mortal health, float oldValue) {
 		// Knight health
 		if(health.gameObject == Knight.gameObject) {
+            if(health.CurrentHealth < oldValue)
+            {
+                GameCanvas.Ouch(1f);
+            }
 			if(health.CurrentHealth <= 0) {
 				GameOver();
 			}
-		// Princess health
-		} else if (health.gameObject == Princess.gameObject) {
-			score = health.TotalHealth - health.CurrentHealth;
 		}
 	}
 
@@ -86,7 +99,9 @@ public class GameController : MonoBehaviour, HealthListener, AreaListener {
 	}
 
 	public void GetReady() {
-		getReady = true;
+        audioSource.Play();
+        ComicController.StopMusic();
+        getReady = true;
 	}
 
 	public void GameOver() {
@@ -100,9 +115,17 @@ public class GameController : MonoBehaviour, HealthListener, AreaListener {
 		Invoke("ShowScore", delay);
 	}
 
+    public int calculateScore()
+    {
+        score = PrincessHealthScore * (princessHealth.TotalHealth - princessHealth.CurrentHealth) -
+            KnightHealthScore * (knightHealth.TotalHealth - knightHealth.CurrentHealth) +
+            (distance * DistanceScore);
+        return (int)score;
+    }
+
 	void ShowScore() {
 		GameObject scoreText = RetryCanvas.transform.FindChild("ScoreVar").gameObject;
-		scoreText.GetComponent<Text>().text = score+"";
+		scoreText.GetComponent<Text>().text = calculateScore() + "";
 
 		RetryCanvas.SetActive(true);
 	}
@@ -114,7 +137,7 @@ public class GameController : MonoBehaviour, HealthListener, AreaListener {
 
 	public void Win() {
 		GameObject scoreText = WinCanvas.transform.FindChild("ScoreVar").gameObject;
-		scoreText.GetComponent<Text>().text = score+"";
+		scoreText.GetComponent<Text>().text = calculateScore() + "";
 		
 		WinCanvas.SetActive(true);
 		Knight.Disable(true);

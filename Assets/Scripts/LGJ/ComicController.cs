@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(AudioSource))]
 public class ComicController : MonoBehaviour {
 
 	public GameObject CameraRig;
@@ -8,15 +9,22 @@ public class ComicController : MonoBehaviour {
 	public GameObject CamAnchorGame;
 	public GameObject GameController;
 
+    private AudioSource audioSource;
+
 	private bool toGame = false;
 
 	private float lerpTimer = 0;
 	private float lerpTime = 1.5f;
 
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
 	// Use this for initialization
 	void Start () {
-	
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,9 +40,15 @@ public class ComicController : MonoBehaviour {
 
 	public void StartComic() {
 		CameraRig.transform.position = CamAnchorComic.transform.position;
+        audioSource.Play();
 	}
 
 	public void StartGame() {
 		toGame = true;
 	}
+
+    public void StopMusic()
+    {
+        audioSource.Stop();
+    }
 }

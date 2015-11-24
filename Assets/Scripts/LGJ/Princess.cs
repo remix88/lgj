@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Princess : MonoBehaviour, AreaListener
+public class Princess : MonoBehaviour, AreaListener, HealthListener, GroundListener
 {
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the princess is currently facing.
@@ -17,16 +17,19 @@ public class Princess : MonoBehaviour, AreaListener
 	public float LassoCooldown = 5f;
 	public AudioClip[] jumpClips;			// Array of clips for when the princess jumps.
 	public float jumpForce = 1000f;			// Amount of force added when the princess jumps.
-	public AudioClip[] taunts;				// Array of clips for when the princess taunts.
 	public float tauntProbability = 50f;	// Chance of a taunt happening.
 	public GameObject GetBackPoint;
     public DetectionArea Cage;              // Cage in which the princess will be locked.
 
-	private bool grounded = false;			// Whether or not the player is grounded.
+    public AudioClip[] taunts;              // Array of clips for when the princess taunts.
+    public AudioClip[] ouch;                // Array of clips for when the princess hurts.
+
+    private bool grounded = false;			// Whether or not the player is grounded.
 
 	public float JumpChance = 20;
 
 	private int tauntIndex;					// The index of the taunts array indicating the most recent taunt.
+    private int ouchIndex;                  // The index of the most recent ouch
 	private Animator anim;					// Reference to the princess's animator component.
 
 	public PlayerControl Knight;
@@ -50,7 +53,7 @@ public class Princess : MonoBehaviour, AreaListener
 
 	void Start() {
 		//Physics2D.IgnoreCollision(Player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
-		InvokeRepeating("Taunt", 1, 5);
+		InvokeRepeating("MaybeTaunt", 1, 5);
 		InvokeRepeating("MaybeJump", 1, 3);
 
 		if(Knight == null) {
@@ -66,6 +69,8 @@ public class Princess : MonoBehaviour, AreaListener
         }
 
 		CheckDirection();
+
+        health.AddHealthListener(this);
 	}
 
 	void Awake()
@@ -87,8 +92,7 @@ public class Princess : MonoBehaviour, AreaListener
 		if(lasso) {
 			DrawLasso();
 		}
-		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies") | 1 << LayerMask.NameToLayer("Princess"));
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, layerMask);
+		
 		if(health.CurrentHealth < .25f * health.TotalHealth) {
 			state = 3;
 		} else if (health.CurrentHealth < 0.5f * health.TotalHealth) {
@@ -238,6 +242,11 @@ public class Princess : MonoBehaviour, AreaListener
 	}
 
 	private void MaybeJump() {
+        if(disabled)
+        {
+            return;
+        }
+
 		if(grounded && UnityEngine.Random.Range(0f, 100f) < JumpChance) {
 			Jump ();
 		}
@@ -247,9 +256,9 @@ public class Princess : MonoBehaviour, AreaListener
 		jump = true;
 	}
 	
-	public void Taunt()
+	public void MaybeTaunt()
 	{
-		if(taunts.Length == 0) {
+		if(disabled || taunts.Length == 0) {
 			return;
 		}
 		// Check the random chance of taunting.
@@ -279,6 +288,20 @@ public class Princess : MonoBehaviour, AreaListener
 		if(i == tauntIndex)
 			// ... try another random taunt.
 			return TauntRandom();
+		else
+			// Otherwise return this index.
+			return i;
+	}
+
+    int OuchRandom()
+	{
+		// Choose a random index of the taunts array.
+		int i = UnityEngine.Random.Range(0, ouch.Length);
+		
+		// If it's the same as the previous taunt...
+		if(i == ouchIndex)
+			// ... try another random taunt.
+			return OuchRandom();
 		else
 			// Otherwise return this index.
 			return i;
@@ -367,5 +390,28 @@ public class Princess : MonoBehaviour, AreaListener
             Angry(false);
             Disable(false);
         }
+    }
+
+    public void OnHealthChange(Mortal health, float oldValue)
+    {
+        if(health.CurrentHealth < oldValue)
+        {
+            // Choose a random, but different taunt.
+            ouchIndex = OuchRandom();
+
+            // Play the new taunt.
+            GetComponent<AudioSource>().clip = ouch[ouchIndex];
+            GetComponent<AudioSource>().Play();
+        }
+    }
+
+    void GroundListener.OnGrounded()
+    {
+        grounded = true;
+    }
+
+    void GroundListener.OnAired()
+    {
+        grounded = false;
     }
 }

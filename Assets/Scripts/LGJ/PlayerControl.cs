@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : MonoBehaviour, GroundListener
 {
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
@@ -66,12 +67,6 @@ public class PlayerControl : MonoBehaviour
 
 	void Update()
 	{
-		// The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-		int layerMask = ~(1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies") | 1 << LayerMask.NameToLayer("Princess"));
-		grounded = Physics2D.Linecast(transform.position, groundCheck1.position, layerMask) ||
-            Physics2D.Linecast(transform.position, groundCheck2.position, layerMask) ||
-            Physics2D.Linecast(transform.position, groundCheck3.position, layerMask);
-
         ProcessInput();
 
 		if(disabledUntil >= 0 && Time.time > disabledUntil) {
@@ -152,7 +147,7 @@ public class PlayerControl : MonoBehaviour
 		{
 			// Play a random jump audio clip.
 			if(jumpClips.Length > 0) {
-				int i = Random.Range(0, jumpClips.Length);
+				int i = UnityEngine.Random.Range(0, jumpClips.Length);
 				AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
 			}
 
@@ -196,7 +191,7 @@ public class PlayerControl : MonoBehaviour
 	public IEnumerator Taunt()
 	{
 		// Check the random chance of taunting.
-		float tauntChance = Random.Range(0f, 100f);
+		float tauntChance = UnityEngine.Random.Range(0f, 100f);
 		if(tauntChance > tauntProbability)
 		{
 			// Wait for tauntDelay number of seconds.
@@ -219,7 +214,7 @@ public class PlayerControl : MonoBehaviour
 	int TauntRandom()
 	{
 		// Choose a random index of the taunts array.
-		int i = Random.Range(0, taunts.Length);
+		int i = UnityEngine.Random.Range(0, taunts.Length);
 
 		// If it's the same as the previous taunt...
 		if(i == tauntIndex)
@@ -267,13 +262,10 @@ public class PlayerControl : MonoBehaviour
 		if(dead) {
 			return;
 		}
-		health.Hurt(danger.DamageOnTouch);
-		hurt = true;
-		if(GetComponent<Rigidbody2D>().velocity.y < 0.5f) {
-			Disable(0.3f);
-			GetComponent<Rigidbody2D>().AddRelativeForce(-100 * Vector2.right);
-		}
-	}
+
+        health.Hurt(danger.DamageOnTouch);
+        hurt = true;
+    }
 	
 	void DangerEffectContinuous(Danger danger) {
 		if(dead) {
@@ -309,8 +301,8 @@ public class PlayerControl : MonoBehaviour
 		if(!hurt) {
 			if(collision.transform.tag == "Danger") {
 				Danger danger = collision.gameObject.GetComponent<Danger>();
-				DangerEffect(danger);
-				DangerImpact(danger);
+                DangerImpact(danger);
+                DangerEffect(danger);
 			}
 		}
 	}
@@ -330,9 +322,18 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void OnBecameInvisible() {
-		Debug.Log ("invisible");
 		if(gameObject.activeSelf) {
 			health.Hurt(health.CurrentHealth);
 		}
 	}
+
+    void GroundListener.OnGrounded()
+    {
+        grounded = true;
+    }
+
+    void GroundListener.OnAired()
+    {
+        grounded = false;
+    }
 }

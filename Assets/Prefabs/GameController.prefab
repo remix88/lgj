@@ -44,9 +44,13 @@ MonoBehaviour:
   CameraRig: {fileID: 0}
   RetryCanvas: {fileID: 0}
   WinCanvas: {fileID: 0}
+  GameCanvas: {fileID: 0}
   ComicController: {fileID: 0}
   ShowIntro: 0
   FinishArea: {fileID: 0}
+  DistanceScore: .100000001
+  KnightHealthScore: .100000001
+  PrincessHealthScore: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
